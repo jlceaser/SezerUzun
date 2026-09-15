@@ -1,6 +1,6 @@
 # Ceaser's World
 
-Sezer Uzun'un kişisel sitesi. Bağımlılık yok, derleme adımı yok — statik HTML,
+Sezer Uzun'un kişisel sitesi. Bağımlılık yok, derleme adımı yok. Statik HTML,
 CSS ve tek bir vanilla JS dosyası.
 
 **Canlı:** https://jlceaser.github.io/SezerUzun/
@@ -54,4 +54,4 @@ Konsol hatalarını, yatay taşmayı ve kritik bileşenlerin render'ını kontro
 
 ## Lisans
 
-AGPL-3.0 + Commons Clause. Lisans sahibi: Makine Çeviri.
+AGPL-3.0 + Commons Clause.
