@@ -1,0 +1,14 @@
+# probe output
+a-*.png
+
+# generated artifact bundle
+dist/
+
+# one-shot patch scripts and local backups
+_*.py
+_*.html
+.bak-*.html
+cert.txt
+
+__pycache__/
+*.pyc

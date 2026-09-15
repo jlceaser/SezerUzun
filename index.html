@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ceaser's World</title>
+<meta name="description" content="Sezer Uzun — oyun yönetmeni, yazılımcı ve Makine Çeviri kurucusu.">
+<meta name="author" content="Sezer Uzun">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#171C1E">
+<link rel="canonical" href="https://jlceaser.github.io/SezerUzun/">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ceaser's World">
+<meta property="og:description" content="Sezer Uzun — oyun yönetmeni, yazılımcı ve Makine Çeviri kurucusu.">
+<meta property="og:image" content="https://jlceaser.github.io/SezerUzun/assets/img/og-cover.jpg">
+<meta property="og:url" content="https://jlceaser.github.io/SezerUzun/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+<link rel="preload" as="image" href="assets/img/hero-sunset.jpg">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<!-- ───────────────────────────── loader ───────────────────────────── -->
+<div class="load" id="load" lang="tr">
+  <div class="num" id="loadNum">0</div>
+  <div class="who l dim">
+    <div>Sezer Uzun</div>
+    <div>Portfolio &rsquo;23</div>
+  </div>
+</div>
+
+<div class="grain" id="grain" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="ring" id="ring" aria-hidden="true"></div>
+<div class="prev" id="prev" aria-hidden="true"><i></i></div>
+
+<!-- ───────────────────────────── nav ───────────────────────────── -->
+<nav class="nav l" lang="tr">
+  <div class="nav-l">
+    <a href="#top">Ceaser&nbsp;</a>
+  </div>
+</nav>
+
+<div id="scroller">
+<main id="top" lang="tr">
+
+  <!-- ─────────────────────── INTRO ─────────────────────── -->
+  <section class="wrap intro rv" id="kimlik">
+    <div class="stage" aria-hidden="true">
+      <div class="photo-wrap" id="photoWrap"><div class="photo"></div></div>
+      <div class="scrim"></div>
+      <canvas class="motes" id="motes"></canvas>
+      <div class="vig" id="vig"></div>
+    </div>
+
+    <div class="intro-meta l" data-par=".05">
+      <div class="dim sf" style="--i:0">Manager<br>CEDRA INTERACTIVE &amp; MAKİNE ÇEVİRİ &amp; FİNETİON</div>
+      <div class="acc sf" style="--i:1">TÜRKİYE&rsquo;DE HOME OFFİCE ÇALIŞIYORUM;<br>SEÇİLİ PROJE & İŞLER İÇİN GÖRÜŞEBİLİRİZ.</div>
+    </div>
+
+    <h1 class="d d--name">
+      <span class="m" style="--i:0"><span>SEZER</span></span>
+      <span class="m o1" style="--i:1"><span>UZUN</span></span>
+    </h1>
+
+    <div class="intro-tail">
+      <dl class="layers" data-par=".09">
+        <div class="layer sf" style="--i:0">
+          <dt class="l">Video oyunu sektöründe:</dt>
+          <dd>Game Director / Creative Director</dd>
+        </div>
+        <div class="layer sf" style="--i:1">
+          <dt class="l">Yazılım sektöründe:</dt>
+          <dd>Full-Stack Dev</dd>
+        </div>
+        <div class="layer sf" style="--i:2">
+          <dt class="l">Çeviri sektöründe:</dt>
+          <dd>Makine Çeviri Kurucusu</dd>
+        </div>
+      </dl>
+      <div class="side l dim sf" style="--i:1">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── MARQUEE ─────────────────────── -->
+  <div class="mq l" aria-hidden="true">
+    <div class="mq-in" id="mq"></div>
+  </div>
+
+  <!-- ─────────────────────── WORKS ─────────────────────── -->
+  <section class="wrap works rv" id="sistemler">
+    <div class="works-grid">
+      <div class="works-head l">
+        <span class="sf" style="--i:0">Sistemler</span>
+      </div>
+
+      <div class="works-list">
+        <a class="wk" target="_blank" rel="noopener noreferrer" href="https://makineceviri.org" style="--i:0" data-c="0">
+          <span class="l wk-n">01</span>
+          <img class="wk-logo" src="assets/img/logo-makine-ceviri.png" alt="" aria-hidden="true">
+          <span class="wk-t">Makine Çeviri</span>
+          <span class="l wk-y">2018 &rarr; Canlı</span>
+          <span class="wk-d">Video oyunu Türkçe çeviri ekosistemi ve masaüstü launcher, backend servisleri, Discord topluluğu, dağıtım altyapısı.</span>
+        </a>
+        <a class="wk wk--soon" style="--i:1" data-c="1">
+          <span class="l wk-n">02</span>
+          <img class="wk-logo" src="assets/img/logo-makineai.webp" alt="" aria-hidden="true">
+          <span class="wk-t">MakineAI</span>
+          <span class="l wk-y">2025 &rarr; Yapımda</span>
+          <span class="wk-d">Türkçe özel tokenizer, korpus hattı ve morfolojik çözümleme, dil modeli eğitimi için taban.</span>
+        </a>
+        <a class="wk" target="_blank" rel="noopener noreferrer" href="https://cedrainteractive.com" style="--i:2" data-c="2">
+          <span class="l wk-n">04</span>
+          <img class="wk-logo" src="assets/img/logo-cedra.png" alt="" aria-hidden="true">
+          <span class="wk-t">CEDRA Interactive</span>
+          <span class="l wk-y">2025 &rarr; Canlı</span>
+          <span class="wk-d">Oyun stüdyosu.</span>
+        </a>
+        <a class="wk" target="_blank" rel="noopener noreferrer" href="https://finetion.com" style="--i:3" data-c="3">
+          <span class="l wk-n">05</span>
+          <img class="wk-logo round" src="assets/img/logo-finetion.png" alt="" aria-hidden="true">
+          <span class="wk-t">Finetion</span>
+          <span class="l wk-y">2025 &rarr; Canlı</span>
+          <span class="wk-d">Web &amp; Otomasyon Stüdyosu.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERTİFİKALAR -->
+  <section class="wrap certs rv" id="sertifikalar">
+    <div class="works-grid">
+      <div class="works-head l">
+        <span class="sf" style="--i:0">Sertifikalar</span>
+        <span class="sf dim" style="--i:1">13</span>
+      </div>
+
+      <div class="ct-list">
+        <a class="ct sf" style="--i:0" data-cert="kariyer" data-ar="1.625"
+           href="https://ytnktv.uzaktanegitimkapisi.gov.tr/sertifika/bilgi/F1CA852A-8081-46A1-9A80-F4DADD25256D" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Kariyer Planlama</span>
+          <span class="l ct-y">2026</span>
+          <span class="l ct-o">YTNK TV</span>
+        </a>
+        <a class="ct sf" style="--i:1" data-cert="ann" data-ar="1.489"
+           href="https://gelecegiyazanlar.turkcell.com.tr/sertifika/4ceef6d2fe1d4e769746a15c8303d9dc" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Derin Öğrenme ANN</span>
+          <span class="l ct-y">2025</span>
+          <span class="l ct-o">Turkcell Geleceği Yazanlar</span>
+        </a>
+        <a class="ct sf" style="--i:2" data-cert="risk" data-ar="0.704"
+           href="https://www.open.edu/openlearn/badges/badge.php?hash=3f01d1e0390b2bab961e968a0e8e8937ed6ecd6e" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Risk Management</span>
+          <span class="l ct-y">2026</span>
+          <span class="l ct-o" lang="en">The Open University</span>
+        </a>
+        <a class="ct sf" style="--i:3" data-cert="pyonetimi" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=ax1hD1vNZe" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Proje Yönetimi</span>
+          <span class="l ct-y">2025</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:4" data-cert="algo" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=mKEhvOnaYo" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Algoritma Programlama ve Veri Yapılarına Giriş</span>
+          <span class="l ct-y">2024</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:5" data-cert="siber" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=L8dcnYWj02" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Siber Güvenliğe Giriş</span>
+          <span class="l ct-y">2024</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:6" data-cert="bilgiguv" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=L8dcnJa62Z" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Bilgi Güvenliğine Giriş</span>
+          <span class="l ct-y">2023</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:7" data-cert="agtemel" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=pKmhKVypkj" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Ağ Temelleri</span>
+          <span class="l ct-y">2023</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:8" data-cert="ptemel" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=EoPfbwPnp8" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Proje Yönetim Temelleri</span>
+          <span class="l ct-y">2023</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:9" data-cert="isletim" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=GoDfn9717b" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">İşletim Sistemlerine Giriş</span>
+          <span class="l ct-y">2023</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:10" data-cert="agteknoloji" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=EoPfbzvK8g" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Temel Ağ Teknolojileri</span>
+          <span class="l ct-y">2023</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:11" data-cert="bilgitek" data-ar="1.415"
+           href="https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=XV1hW2gB7r" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Bilgi Teknolojilerine Giriş</span>
+          <span class="l ct-y">2022</span>
+          <span class="l ct-o">BTK Akademi</span>
+        </a>
+        <a class="ct sf" style="--i:12" data-cert="digiage" data-ar="1.503"
+           href="https://verified.sertifier.com/tr/verify/96897728521929" target="_blank" rel="noopener noreferrer">
+          <span class="ct-t">Digiage Oyun Senaryosu Geliştirme Çevrim İçi Kampı</span>
+          <span class="l ct-y">2021</span>
+          <span class="l ct-o">Bilişim Vadisi</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── FOOTER ─────────────────────── -->
+  <footer class="wrap foot rv" id="iletisim">
+    <p class="l dim net-label">Network</p>
+    <div class="strip" id="strip" data-par=".03"></div>
+
+    <div class="foot-g" data-par=".04">
+      <div class="sf" style="--i:0">
+        <p class="l dim" style="margin:0 0 .7rem">İletişim</p>
+        <div class="mails">
+          <a class="mail" href="mailto:sezeruzun@cedrainteractive.com">sezeruzun@cedrainteractive.com</a>
+          <a class="mail" href="mailto:sezeruzun@makineceviri.org">sezeruzun@makineceviri.org</a>
+        </div>
+      </div>
+      <div class="sf" style="--i:2">
+        <p class="l dim" style="margin:0 0 .7rem">Dip Not</p>
+        <blockquote class="quote">
+          <p>Hürriyet ve istiklâl benim karakterimdir.</p>
+          <cite class="l">Gazi Mustafa Kemal Atatürk</cite>
+        </blockquote>
+      </div>
+    </div>
+  </footer>
+</main>
+</div>
+
+<div class="map ts-1" id="map" role="dialog" aria-modal="true" aria-label="Site haritası" lang="tr">
+  <div class="map-head">
+    <span>Harita &mdash; sayfanın silueti</span>
+    <span class="dim">Genişlik: sayfadaki pay &nbsp;·&nbsp; Yükseklik: içerik yoğunluğu</span>
+  </div>
+  <div class="map-city" id="mapCity">
+    <div class="map-sun" id="mapSun"><i></i></div>
+  </div>
+  <div class="map-legend" id="mapLegend"></div>
+  <div class="map-foot">
+    <button class="map-x" id="mapClose" data-mag type="button">Kapat &mdash; ESC</button>
+  </div>
+</div>
+
+<div class="prog" id="prog"></div>
+
+<div class="sticky" lang="tr">
+  <div class="huge" aria-hidden="true"><span></span><span>Ceaser</span></div>
+  <div class="meta l">
+  </div>
+</div>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
