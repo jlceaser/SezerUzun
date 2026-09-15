@@ -85,24 +85,6 @@
     g.style.backgroundImage = 'url(' + n.toDataURL() + ')';
   })();
 
-  /* ---------- the band: three domains, scroll-driven -------------
-     It creeps at rest and takes its speed and direction from the
-     reader's own scrolling, so the motion reports something real
-     instead of running on a timer.                               */
-  var mqIn = document.getElementById('mq');
-  var mqX = 0, mqHalf = 0;
-  (function(){
-    if (!mqIn) return;
-    var words = ['Video oyunu', 'Yazılım', 'Çeviri'];
-    var run = words.map(function(w){ return '<span class="mq-w">' + w + '</span>'; }).join('');
-    mqIn.innerHTML = run + run + run + run;   /* enough copies to cover any width */
-    function measure(){ mqHalf = mqIn.scrollWidth / 4; }
-    measure();
-    if (window.ResizeObserver) new ResizeObserver(measure).observe(mqIn);
-    window.addEventListener('resize', measure);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-  })();
-
   /* ---------- reveals ---------- */
   var sections = [].slice.call(document.querySelectorAll('.rv'));
   var intro = document.getElementById('kimlik');
@@ -552,13 +534,6 @@
       var pe = parEls[q2], pr = pe.getBoundingClientRect();
       var away = (pr.top + pr.height / 2) - vh / 2;
       pe.style.transform = 'translate3d(0,' + (-away * parseFloat(pe.dataset.par)).toFixed(1) + 'px,0)';
-    }
-
-    if (mqIn && mqHalf > 0){
-      mqX -= (.28 + vel * .55);             /* a slow drift plus the reader's speed */
-      if (mqX <= -mqHalf) mqX += mqHalf;
-      if (mqX > 0) mqX -= mqHalf;
-      mqIn.style.transform = 'translate3d(' + mqX.toFixed(2) + 'px,0,0)';
     }
 
     if (motes) motes(0, vel);
