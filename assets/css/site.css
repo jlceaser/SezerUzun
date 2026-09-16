@@ -351,6 +351,8 @@ html.smooth{ scroll-behavior:auto; }
 .layer:hover dt{ color:var(--accent); }
 .layer dd{ margin:0; }
 .intro-tail .side{ grid-column:4 / -1; }
+/* Short prose under the strata: body size, dim, measured for reading. */
+.intro-tail .bio{ margin:1.5rem 0 0; max-width:46ch; }
 @media (max-width:760px){
   .layers{ grid-column:1 / -1; }
   .layer{ grid-template-columns:minmax(0,1fr); gap:.2rem; padding-block:.8rem; }
