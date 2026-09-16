@@ -173,7 +173,7 @@
 
 
   /* ---------- certificate previews ---------- */
-  var CERT = {"kariyer": "assets/img/cert/kariyer.webp","ann": "assets/img/cert/ann.webp","risk": "assets/img/cert/risk.webp","pyonetimi": "assets/img/cert/pyonetimi.webp","algo": "assets/img/cert/algo.webp","siber": "assets/img/cert/siber.webp","bilgiguv": "assets/img/cert/bilgiguv.webp","agtemel": "assets/img/cert/agtemel.webp","ptemel": "assets/img/cert/ptemel.webp","isletim": "assets/img/cert/isletim.webp","agteknoloji": "assets/img/cert/agteknoloji.webp","bilgitek": "assets/img/cert/bilgitek.webp","digiage": "assets/img/cert/digiage.webp"};
+  var CERT = {"disticaret": "assets/img/cert/disticaret.webp","kariyer": "assets/img/cert/kariyer.webp","ann": "assets/img/cert/ann.webp","risk": "assets/img/cert/risk.webp","pyonetimi": "assets/img/cert/pyonetimi.webp","algo": "assets/img/cert/algo.webp","siber": "assets/img/cert/siber.webp","bilgiguv": "assets/img/cert/bilgiguv.webp","agtemel": "assets/img/cert/agtemel.webp","ptemel": "assets/img/cert/ptemel.webp","isletim": "assets/img/cert/isletim.webp","agteknoloji": "assets/img/cert/agteknoloji.webp","bilgitek": "assets/img/cert/bilgitek.webp","digiage": "assets/img/cert/digiage.webp"};
   [].slice.call(document.querySelectorAll('.ct')).forEach(function(row){
     row.addEventListener('mouseenter', function(){
       if (reduce || !prevImg) return;
