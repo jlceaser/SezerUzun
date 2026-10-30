@@ -1,0 +1,151 @@
+/* ============================================================
+   YIĞIN — the toolbox as a custom keyboard. Dusk caps with peach
+   legends, one ember key set apart like an Esc. A press travels
+   down, tightens the contact shadow and leaves a warm glow on the
+   plate; the readout underneath types what the key is for.
+   ============================================================ */
+.stack{ padding-block:var(--sp7); }
+.kb{ grid-column:4 / span 5; min-width:0; }
+@media (max-width:860px){ .kb{ grid-column:1 / -1; } }
+
+.kb-case{
+  position:relative; padding:clamp(.55rem, 1vw, .8rem);
+  border-radius:16px;
+  background:linear-gradient(180deg, #23292C 0%, #1A1F21 55%, #15191B 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(237 233 228 / .07),
+    inset 0 -1px 0 rgb(0 0 0 / .4),
+    0 0 0 1px rgb(237 233 228 / .06),
+    0 30px 60px -28px rgb(0 0 0 / .85),
+    0 10px 24px -14px rgb(0 0 0 / .6);
+}
+/* the sunset falls across the case from the left, very faintly */
+.kb-case::before{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:radial-gradient(70% 120% at 0% 0%, rgb(252 123 52 / .07), rgb(252 123 52 / 0) 60%);
+}
+.kb-plate{
+  position:relative; isolation:isolate;   /* the plate glow (z-index:-1) paints above the plate, below the caps */
+  display:flex; gap:clamp(.32rem, .6vw, .5rem);
+  padding:clamp(.45rem, .8vw, .65rem) clamp(.45rem, .8vw, .65rem) clamp(.7rem, 1.2vw, .95rem);
+  border-radius:11px;
+  background:linear-gradient(180deg, #0C0F10, #111516);
+  box-shadow:inset 0 2px 7px rgb(0 0 0 / .75), inset 0 0 0 1px rgb(0 0 0 / .5), 0 1px 0 rgb(237 233 228 / .05);
+}
+
+/* ---------- a keycap ---------- */
+.key{
+  --travel:4px;
+  position:relative; flex:1 1 0; min-width:0; aspect-ratio:1 / 1.07;
+  margin:0; padding:0; border:0; background:none; color:inherit; font:inherit;
+  cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+  outline:none;
+}
+.key--acc{ margin-right:clamp(.5rem, 1.1vw, .95rem); }
+
+/* the warm light it leaves on the plate */
+.key::after{
+  content:""; position:absolute; left:-18%; right:-18%; bottom:-22%; height:48%; z-index:-1;
+  background:radial-gradient(closest-side, rgb(252 123 52 / .62), rgb(252 123 52 / 0));
+  opacity:0; transition:opacity 1.6s ease;
+  pointer-events:none;
+}
+.key.hit::after{ opacity:1; transition-duration:.08s; }
+
+/* skirt: the body of the cap, darker towards the plate */
+.key-skirt{
+  position:absolute; inset:0; border-radius:22% / 20%;
+  background:linear-gradient(180deg, #3B3D46 0%, #2C2E35 46%, #212329 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .05),
+    inset 1px 0 0 rgb(255 255 255 / .02), inset -1px 0 0 rgb(0 0 0 / .25),
+    0 7px 9px -4px rgb(0 0 0 / .75), 0 2px 2px rgb(0 0 0 / .55);
+  transition:transform .22s cubic-bezier(.3,1.6,.5,1), box-shadow .22s ease;
+}
+/* top face: dished, lit from above */
+.key-top{
+  position:absolute; left:9%; right:9%; top:5%; bottom:17%;
+  display:grid; place-items:center; border-radius:18% / 17%;
+  background:
+    radial-gradient(130% 95% at 50% 8%, rgb(255 255 255 / .09), rgb(255 255 255 / 0) 55%),
+    linear-gradient(180deg, #4A4C56 0%, #41434C 48%, #393B43 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .1),
+    inset 0 -3px 4px rgb(0 0 0 / .22),
+    inset 0 0 0 1px rgb(0 0 0 / .12),
+    0 1px 1px rgb(0 0 0 / .35);
+  transition:transform .22s cubic-bezier(.3,1.6,.5,1);
+}
+.key svg{
+  width:calc(40% * var(--s, 1)); height:auto; display:block;
+  fill:var(--name); opacity:.92;
+  transition:fill .5s ease, opacity .5s ease, filter .5s ease;
+}
+.key-word{
+  font-weight:600; font-size:clamp(.62rem, .82vw, .78rem); letter-spacing:-.01em;
+  color:var(--name); opacity:.92; transition:color .5s ease, opacity .5s ease;
+}
+
+/* the ember key */
+.key--acc .key-skirt{ background:linear-gradient(180deg, #E86A27 0%, #C1501B 50%, #93370F 100%); }
+.key--acc .key-top{
+  background:
+    radial-gradient(130% 95% at 50% 8%, rgb(255 255 255 / .22), rgb(255 255 255 / 0) 55%),
+    linear-gradient(180deg, #FFA45F 0%, #FC8A42 46%, #EE7430 100%);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .3), inset 0 -3px 4px rgb(120 40 8 / .3), 0 1px 1px rgb(0 0 0 / .35);
+}
+.key--acc svg{ fill:#3A1607; opacity:.88; }
+
+/* ---------- pressed ---------- */
+.key.down .key-skirt{
+  transform:translateY(calc(var(--travel) * .55));
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .04), 0 2px 3px -1px rgb(0 0 0 / .8), 0 1px 1px rgb(0 0 0 / .6);
+  transition-duration:.07s; transition-timing-function:ease-out;
+}
+.key.down .key-top{ transform:translateY(var(--travel)); transition-duration:.07s; transition-timing-function:ease-out; }
+.key.down svg, .key.hit svg{ fill:var(--sun); opacity:1; filter:drop-shadow(0 0 6px rgb(252 123 52 / .45)); transition-duration:.08s; }
+.key.down .key-word, .key.hit .key-word{ color:var(--sun); opacity:1; transition-duration:.08s; }
+.key--acc.down svg, .key--acc.hit svg{ fill:#2A0F04; filter:none; }
+
+.key:focus-visible .key-skirt{ box-shadow:0 0 0 2px var(--bg), 0 0 0 4px var(--accent), 0 7px 9px -4px rgb(0 0 0 / .75); }
+
+/* ---------- the readout ---------- */
+.kb-out{
+  display:flex; justify-content:space-between; align-items:baseline; gap:1.2rem;
+  margin-top:var(--sp3); padding-top:var(--sp2); border-top:1px solid var(--hair);
+  font-family:ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, monospace;
+  font-size:calc(var(--t0) * .92); line-height:1.5; letter-spacing:0;
+  min-height:calc(var(--t0) * .92 * 1.5 + var(--sp2) + 1px);
+}
+.kb-line{ display:flex; align-items:baseline; gap:.75ch; min-width:0; flex-wrap:wrap; }
+.kb-p, .kb-name{ color:var(--accent); }
+.kb-name{ margin-right:.8ch; }
+.kb-name:empty{ display:none; }
+.kb-note{ color:var(--dim); }
+.kb-caret{
+  display:inline-block; width:.62em; height:1.05em; margin-left:-.4ch; align-self:center;
+  background:var(--accent); animation:kbBlink 1.05s steps(1) infinite;
+}
+@keyframes kbBlink{ 50%{ opacity:0; } }
+.kb-count{ color:var(--dim); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.kb-i{ color:var(--fg); }
+.kb-live{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
+}
+
+/* ---------- narrow screens: a tidy 4-wide block ---------- */
+@media (max-width:640px){
+  .kb-plate{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:.55rem; padding:.6rem .6rem .85rem; }
+  .key{ aspect-ratio:1 / 1.02; }
+  .key.key--acc{ margin-right:0; grid-column:span 2; aspect-ratio:auto; }   /* a wide key, so 11 caps fill 4 × 3 */
+  .key svg{ width:calc(36% * var(--s, 1)); }
+  .key--acc svg{ width:auto; height:calc(46% * var(--s, 1)); }   /* sized by height: the wide cap is not wider in spirit */
+  .key-word{ font-size:.8rem; }
+  .kb-out{ flex-direction:column; gap:.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .key-skirt, .key-top, .key svg, .key-word, .key::after{ transition:none !important; }
+  .kb-caret{ animation:none; }
+}

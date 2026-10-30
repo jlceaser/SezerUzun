@@ -1,0 +1,194 @@
+/* ============================================================
+   DİL — one sentence, two maps. The English line sits above, the
+   Turkish below; ribbons drawn from the real glyph boxes show where
+   each word went. Turkish words are split into their morphemes, so
+   a ribbon can land on a single suffix.
+   ============================================================ */
+.dil{ padding-block:var(--sp7); }
+.dil-lede{
+  grid-column:4 / span 5; margin:0; max-width:34ch;
+  font-size:var(--t2); line-height:var(--lh2); letter-spacing:var(--tr2);
+  font-weight:400; text-wrap:balance;
+}
+@media (max-width:860px){
+  .dil .works-head{ position:static; transform:none; grid-column:1 / -1; margin-bottom:1.5rem;
+                    flex-direction:row; justify-content:space-between; align-items:baseline; }
+  .dil-lede{ grid-column:1 / -1; }
+}
+
+/* ---------- stage ---------- */
+.dil-stage{
+  --dil-tr:clamp(1.15rem, 4.9vw, 4.4rem);   /* overwritten by the fit in dil.js */
+  --dil-en:clamp(.86rem, 2.1vw, 1.85rem);
+  --dil-g:clamp(.68rem, .62rem + .22vw, .8rem);
+  position:relative; margin-top:var(--sp6);
+  border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);
+  padding-block:var(--sp3) var(--sp3);
+}
+.dil-top{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.dil-count{ margin:0; font-variant-numeric:tabular-nums; }
+.dil-now{ color:var(--fg); }
+
+.dil-nav{ display:flex; align-items:center; gap:clamp(.9rem, 1.8vw, 1.6rem); }
+.dil-go{
+  position:relative; background:none; border:0; padding:.45rem 0; cursor:pointer;
+  color:var(--dim); font-variant-numeric:tabular-nums;
+  transition:color .4s ease;
+}
+.dil-go span{ display:block; }
+.dil-go i{
+  position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--rule); overflow:hidden;
+}
+.dil-go i::after{
+  content:""; position:absolute; inset:0; background:var(--accent);
+  transform:scaleX(var(--p, 0)); transform-origin:0 50%;
+}
+.dil-go:hover, .dil-go[aria-pressed="true"]{ color:var(--fg); }
+.dil-go:focus-visible, .dil-pause:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
+
+.dil-pause{
+  width:1.9rem; height:1.9rem; display:grid; place-items:center; padding:0; cursor:pointer;
+  background:none; border:1px solid var(--rule); border-radius:50%; color:var(--dim);
+  transition:color .4s ease, border-color .4s ease;
+}
+.dil-pause:hover{ color:var(--accent); border-color:var(--accent); }
+.dil-pause[hidden]{ display:none; }
+.dil-pause svg{ width:.7rem; height:.7rem; overflow:visible; }
+.dil-pause path{ stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+.dil-ic-play{ display:none; fill:currentColor !important; stroke-width:1 !important; }
+.dil-pause[aria-pressed="true"] .dil-ic-pause{ display:none; }
+.dil-pause[aria-pressed="true"] .dil-ic-play{ display:inline; }
+
+/* ---------- the pairs: stacked in one cell so the stage never jumps ---------- */
+.dil-pairs{ display:grid; padding-block:var(--sp6) var(--sp4); }
+.dil-pair{
+  grid-area:1 / 1; position:relative; margin:0; min-width:0;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.dil-js .dil-pair{ visibility:hidden; opacity:0; transition:opacity .4s ease, visibility 0s linear .4s; }
+.dil-js .dil-pair.is-on{ visibility:visible; opacity:1; transition:opacity .25s ease, visibility 0s; }
+/* without the script every pair simply stands in the flow */
+.dil-stage:not(.dil-js) .dil-pairs{ gap:var(--sp6); }
+.dil-stage:not(.dil-js) .dil-pair{ grid-area:auto; }
+
+.dil-rib{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; }
+
+.dil-en{
+  margin:0; white-space:nowrap; position:relative;
+  font-size:var(--dil-en); line-height:1.2; letter-spacing:-.012em; font-weight:400;
+}
+.dil-tr{
+  margin:clamp(4.4rem, 8.6vw, 8.4rem) 0 0; position:relative;
+  display:flex; justify-content:center; align-items:flex-start; gap:0 .27em; white-space:nowrap;
+  font-size:var(--dil-tr); line-height:1; letter-spacing:-.032em; font-weight:600;
+}
+.dil-u{ display:flex; flex-direction:column; align-items:flex-start; text-align:left; }
+.dil-tw{ display:block; }
+.dil-sg, .dil-gl{
+  display:block; font-size:var(--dil-g); line-height:1.55; letter-spacing:.02em;
+  font-weight:500; white-space:nowrap; color:var(--dim);
+}
+.dil-sg{ margin-top:clamp(.7rem, 1.2vw, 1.15rem); color:rgb(252 123 52 / .78); }
+/* a gloss wider than its word keeps a gutter of its own, so neighbouring columns never touch */
+.dil-sg, .dil-gl{ padding-right:.7em; }
+.dil-u:last-child .dil-sg, .dil-u:last-child .dil-gl{ padding-right:0; }
+.dil-gl b, .dil-sg b{ font-weight:inherit; }
+.dil-gl abbr{ text-decoration:none; letter-spacing:.07em; font-size:.92em; }
+
+.dil-note{
+  margin-top:clamp(2.2rem, 4vw, 3.4rem); max-width:52ch; color:var(--dim);
+  font-size:var(--t0); line-height:var(--lh0); letter-spacing:var(--tr0); text-wrap:balance;
+}
+.dil-note em{ font-style:normal; color:var(--fg); }
+
+.dil-hint{ margin:0; text-align:right; }
+.dil-hint-t{ display:none; }
+@media (hover:none){ .dil-hint-f{ display:none; } .dil-hint-t{ display:inline; } }
+.dil-sr{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ---------- colour: stems in the name's peach, suffixes alternate two embers ---------- */
+.dil-w{ color:rgb(237 233 228 / .64); }
+.dil-p{ color:var(--dim); }
+.dil-en .dil-p{ color:var(--dim); }
+.dil-w0{ color:rgb(237 233 228 / .3); }
+.dil-m{ color:var(--name); }
+.dil-m.x{ color:var(--accent); }
+.dil-m.y{ color:#E16523; }
+.dil-tr .dil-p{ color:rgb(253 182 143 / .55); }
+
+[data-dil] [data-l]{ transition:color .35s ease; }
+.dil-js .dil-pair.is-on .dil-w[data-l], .dil-js .dil-pair.is-on .dil-m{ cursor:default; }
+.dil-js .dil-pair.is-on .dil-w[data-l]:focus-visible,
+.dil-js .dil-pair.is-on .dil-m:focus-visible{ outline:1px solid var(--accent); outline-offset:.12em; border-radius:2px; }
+
+/* highlight: everything not on the lit path steps back */
+.dil-stage.is-hl .dil-pair.is-on .dil-w{ color:rgb(237 233 228 / .2); }
+.dil-stage.is-hl .dil-pair.is-on .dil-w.lit{ color:var(--fg); }
+.dil-stage.is-hl .dil-pair.is-on .dil-m{ color:rgb(253 182 143 / .2); }
+.dil-stage.is-hl .dil-pair.is-on .dil-m.lit,
+.dil-stage.is-hl .dil-pair.is-on .dil-tw.lit .dil-m{ color:var(--name); }
+.dil-stage.is-hl .dil-pair.is-on .dil-m.x.lit,
+.dil-stage.is-hl .dil-pair.is-on .dil-tw.lit .dil-m.x{ color:var(--accent); }
+.dil-stage.is-hl .dil-pair.is-on .dil-m.y.lit,
+.dil-stage.is-hl .dil-pair.is-on .dil-tw.lit .dil-m.y{ color:#E16523; }
+.dil-stage.is-hl .dil-pair.is-on .dil-sg b,
+.dil-stage.is-hl .dil-pair.is-on .dil-gl b{ color:rgb(237 233 228 / .22); }
+.dil-stage.is-hl .dil-pair.is-on .dil-sg b.lit{ color:var(--accent); }
+.dil-stage.is-hl .dil-pair.is-on .dil-gl b.lit{ color:var(--fg); }
+
+/* ---------- ribbons and anchor ticks (SVG, built by dil.js) ---------- */
+.dil-rb{
+  fill:none; stroke-width:1.5; stroke-linecap:round;
+  stroke-dasharray:1 1; stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.05s var(--ease) var(--d, 0s), stroke-opacity .35s ease 0s, stroke-width .35s ease 0s;
+}
+.dil-tk{
+  stroke:var(--rule); stroke-width:1; stroke-linecap:round; opacity:0;
+  transition:opacity .6s ease var(--d, 0s), stroke .35s ease 0s;
+}
+.dil-pair.is-on .dil-rb{ stroke-dashoffset:0; }
+.dil-pair.is-on .dil-tk{ opacity:1; }
+.dil-stage.is-hl .dil-pair.is-on .dil-rb{ stroke-opacity:.1; }
+.dil-stage.is-hl .dil-pair.is-on .dil-rb.lit{ stroke-opacity:1; stroke-width:2; }
+.dil-stage.is-hl .dil-pair.is-on .dil-tk.lit{ stroke:var(--accent); }
+
+/* ---------- arrival: words ink in, each morpheme as its ribbon lands ---------- */
+.dil-js .dil-w, .dil-js .dil-m, .dil-js .dil-p, .dil-js .dil-sg, .dil-js .dil-gl, .dil-js .dil-note{
+  opacity:0;
+  transition:opacity .7s ease var(--d, 0s), color .35s ease 0s;
+}
+.dil-js .dil-pair.is-on :is(.dil-w, .dil-m, .dil-p, .dil-sg, .dil-gl, .dil-note){ opacity:1; }
+.dil-js .dil-pair.is-on .dil-w0{ opacity:1; }
+/* leaving is quick and all at once */
+.dil-js .dil-pair:not(.is-on) :is(.dil-w, .dil-m, .dil-p, .dil-sg, .dil-gl, .dil-note, .dil-rb, .dil-tk){
+  transition-delay:0s !important; transition-duration:.3s !important;
+}
+/* a resize redraws the ribbons in place instead of replaying them */
+.dil-pair.now *{ transition:none !important; }
+
+@media (prefers-reduced-motion: reduce){
+  .dil-stage *, .dil-js .dil-pair{ transition:none !important; }
+}
+
+/* ---------- foot ---------- */
+.dil-foot{ margin-top:var(--sp5); align-items:baseline; }
+.dil-about{
+  grid-column:4 / span 4; margin:0; color:var(--dim); max-width:46ch;
+  font-size:var(--t1); line-height:var(--lh1); letter-spacing:var(--tr1); text-wrap:pretty;
+}
+.dil-link{ grid-column:8; justify-self:end; white-space:nowrap; transition:color .4s ease; }
+.dil-link:hover{ color:var(--accent); }
+@media (max-width:860px){
+  .dil-about{ grid-column:1 / -1; }
+  .dil-link{ grid-column:1 / -1; justify-self:start; margin-top:1rem; }
+}
+@media (max-width:640px){
+  .dil-rb{ stroke-width:1.2; }
+  .dil-top{ flex-wrap:wrap; }
+  .dil-count{ display:none; }
+  .dil-nav{ width:100%; justify-content:space-between; }
+  .dil-hint{ text-align:left; }
+}

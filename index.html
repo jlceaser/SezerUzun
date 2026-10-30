@@ -40,6 +40,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
 <link rel="preload" as="image" href="assets/img/hero-sunset.jpg">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/oyunlar.css">
+<link rel="stylesheet" href="assets/css/dil.css">
+<link rel="stylesheet" href="assets/css/yigin.css">
 
 <!-- ── yapısal veri: arama motorları için varlık tanımı ── -->
 <script type="application/ld+json">
@@ -158,7 +161,7 @@
   <div class="num" id="loadNum">0</div>
   <div class="who l dim">
     <div>Sezer Uzun</div>
-    <div>Portfolio &rsquo;23</div>
+    <div lang="en">Ceaser&rsquo;s World</div>
   </div>
 </div>
 
@@ -168,10 +171,16 @@
 <div class="prev" id="prev" aria-hidden="true"><i></i></div>
 
 <!-- ───────────────────────────── nav ───────────────────────────── -->
-<nav class="nav l" lang="tr">
-  <div class="nav-l">
-    <a href="#top">Ceaser&nbsp;</a>
-  </div>
+<nav class="nav l" lang="tr" id="nav" aria-label="Bölümler">
+  <a class="nav-mark" href="#top" lang="en">Ceaser</a>
+  <ul class="nav-links">
+    <li><a href="#sistemler">Sistemler</a></li>
+    <li><a href="#oyunlar">Oyunlar</a></li>
+    <li><a href="#dil">Dil</a></li>
+    <li><a href="#yigin">Yığın</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <span class="nav-clock"><i class="live" aria-hidden="true"></i>Türkiye <time id="clock">--:--</time></span>
 </nav>
 
 <div id="scroller">
@@ -187,8 +196,8 @@
     </div>
 
     <div class="intro-meta l" data-par=".05">
-      <div class="dim sf" style="--i:0">Manager<br>CEDRA INTERACTIVE &amp; MAKİNE ÇEVİRİ &amp; FİNETİON</div>
-      <div class="acc sf" style="--i:1">TÜRKİYE&rsquo;DE HOME OFFİCE ÇALIŞIYORUM;<br>SEÇİLİ PROJE & İŞLER İÇİN GÖRÜŞEBİLİRİZ.</div>
+      <div class="dim sf" style="--i:0">Kurucu &mdash; <span lang="en">CEDRA Interactive</span><br>Kurucu ortak &mdash; Makine Çeviri &amp; <span lang="en">Finetion</span></div>
+      <div class="acc sf" style="--i:1">Türkiye&rsquo;de <span lang="en">home office</span> çalışıyorum;<br>seçili proje &amp; işler için görüşebiliriz.</div>
     </div>
 
     <h1 class="d d--name">
@@ -197,6 +206,7 @@
     </h1>
 
     <div class="intro-tail">
+      <a class="cue l sf" href="#manifesto" style="--i:3"><i aria-hidden="true"></i>Kaydır</a>
       <dl class="layers" data-par=".09">
         <div class="layer sf" style="--i:0">
           <dt class="l">Video oyunu sektöründe:</dt>
@@ -211,7 +221,23 @@
           <dd>Makine Çeviri Kurucusu</dd>
         </div>
       </dl>
-      <div class="side l dim sf" style="--i:1">
+    </div>
+  </section>
+
+  <!-- ─────────────────────── MANIFESTO ─────────────────────── -->
+  <section class="wrap mani rv" id="manifesto">
+    <div class="works-grid">
+      <div class="works-head l">
+        <span class="sf" style="--i:0">Kısaca</span>
+      </div>
+      <div class="mani-b">
+        <p class="mani-t" id="maniT">Oyun yapıyorum, oyunları Türkçeye taşıyorum ve hepsinin üstünde koştuğu araçları kendim yazıyorum.</p>
+        <dl class="facts">
+          <div class="fact sf" style="--i:0"><dt class="l dim">Makine Çeviri topluluğu</dt><dd><span data-count="68">68</span><small>bin</small></dd></div>
+          <div class="fact sf" style="--i:1"><dt class="l dim">CEDRA oyunu</dt><dd><span data-count="4">4</span></dd></div>
+          <div class="fact sf" style="--i:2"><dt class="l dim">Stüdyoda proje &amp; araç</dt><dd><span data-count="20">20</span><small>+</small></dd></div>
+          <div class="fact sf" style="--i:3"><dt class="l dim">Çeviride ilk yıl</dt><dd><span data-count="2019" data-from="2000">2019</span></dd></div>
+        </dl>
       </div>
     </div>
   </section>
@@ -229,32 +255,213 @@
           <img class="wk-logo" src="assets/img/logo-makine-ceviri.png" alt="" aria-hidden="true">
           <span class="wk-t">Makine Çeviri</span>
           <span class="l wk-y">2019 &rarr; Canlı</span>
-          <span class="wk-d">Video oyunu Türkçe çeviri ekosistemi ve masaüstü launcher, backend servisleri, Discord topluluğu, dağıtım altyapısı.</span>
+          <span class="wk-d">Video oyunları için ücretsiz Türkçe yamalar ve onları tek tıkla kuran Makine Launcher: Qt 6 ve C++23 ile yazılan masaüstü uygulaması, backend servisleri, dağıtım altyapısı ve 68 bin üyelik Discord topluluğu.</span>
+          <span class="l wk-tags dim"><span lang="en">Qt 6 · C++23 · Cloudflare · Rust</span></span>
         </a>
-        <a class="wk wk--soon" style="--i:1" data-c="1">
+        <div class="wk wk--soon" style="--i:1" data-c="1">
           <span class="l wk-n">02</span>
           <img class="wk-logo" src="assets/img/logo-makineai.webp" alt="" aria-hidden="true">
-          <span class="wk-t">MakineAI</span>
+          <span class="wk-t" lang="en">MakineAI</span>
           <span class="l wk-y">2025 &rarr; Yapımda</span>
-          <span class="wk-d">Türkçe özel tokenizer, korpus hattı ve morfolojik çözümleme, dil modeli eğitimi için taban.</span>
-        </a>
+          <span class="wk-d">Türkçeye özel tokenizer, korpus hattı ve morfolojik çözümleme: Türkçe bir dil modeli eğitmek için taban.</span>
+          <span class="l wk-tags dim">Tokenizer · Korpus · Morfoloji</span>
+        </div>
         <a class="wk" target="_blank" rel="noopener noreferrer" href="https://cedrainteractive.com" style="--i:2" data-c="2">
-          <span class="l wk-n">04</span>
+          <span class="l wk-n">03</span>
           <img class="wk-logo" src="assets/img/logo-cedra.png" alt="" aria-hidden="true">
-          <span class="wk-t">CEDRA Interactive</span>
+          <span class="wk-t" lang="en">CEDRA Interactive</span>
           <span class="l wk-y">2025 &rarr; Canlı</span>
-          <span class="wk-d">Oyun stüdyosu.</span>
+          <span class="wk-d">Bağımsız oyun stüdyosu. Oyunlarımızı kendi yazdığımız motorda geliştiriyor, oyuncuların nasıl oynadığını ölçüp tasarımı ona göre yönlendiriyoruz.</span>
+          <span class="l wk-tags dim">Oyun yönetmenliği · Kendi motorumuz · <span lang="en">Unity</span></span>
         </a>
         <a class="wk" target="_blank" rel="noopener noreferrer" href="https://finetion.com" style="--i:3" data-c="3">
-          <span class="l wk-n">05</span>
+          <span class="l wk-n">04</span>
           <img class="wk-logo round" src="assets/img/logo-finetion.png" alt="" aria-hidden="true">
-          <span class="wk-t">Finetion</span>
+          <span class="wk-t" lang="en">Finetion</span>
           <span class="l wk-y">2026 &rarr; Canlı</span>
-          <span class="wk-d">Web &amp; Otomasyon Stüdyosu.</span>
+          <span class="wk-d">Yazılım stüdyosu: web uygulamaları, <span lang="en">SaaS</span> ürünleri, mobil ve masaüstü yazılımlar; bulut altyapısını kurup çalışır hâlde tutuyoruz.</span>
+          <span class="l wk-tags dim">Web · <span lang="en">SaaS</span> · Mobil · Otomasyon</span>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- ─────────────────────── OYUNLAR ─────────────────────── -->
+  <!-- ─────────────────────── OYUNLAR ─────────────────────── -->
+    <section class="wrap games rv" id="oyunlar">
+      <div class="works-grid">
+        <div class="works-head l">
+          <span class="sf" style="--i:0">Oyunlar</span>
+          <span class="sf dim" style="--i:1" lang="en">CEDRA Interactive</span>
+          <span class="sf dim" style="--i:2">04</span>
+        </div>
+  
+        <div class="gm-grid">
+          <a class="gm gm--a" style="--i:0" href="https://cedrainteractive.com/work/gastro" target="_blank" rel="noopener noreferrer">
+            <span class="gm-media"><img src="assets/img/work/gastro.webp" width="1400" height="788" loading="lazy" decoding="async"
+              alt="GASTRO: tatlı, acı, ekşi, tuzlu ve umami malzeme kartları yelpaze gibi açılmış."><i></i></span>
+            <span class="gm-cap">
+              <span class="gm-row l"><span class="gm-n">01</span><span class="gm-st gm-st--dev">Yapımda</span><span class="gm-g"><span lang="en">Roguelike</span> · Deste kurma</span></span>
+              <span class="gm-t" lang="en">GASTRO</span>
+              <span class="gm-d">Yemek pişirme üzerine, malzeme kartlarıyla oynanan bir <span lang="en">roguelike deckbuilder</span>.</span>
+            </span>
+          </a>
+  
+          <a class="gm gm--b" style="--i:1;--pos:45% 50%" href="https://cedrainteractive.com/work/one-line" target="_blank" rel="noopener noreferrer">
+            <span class="gm-media"><img src="assets/img/work/one-line.webp" width="1024" height="500" loading="lazy" decoding="async"
+              alt="One Line: telefon ekranında renkli karelerin üzerinden geçen tek bir çizgi."><i></i></span>
+            <span class="gm-cap">
+              <span class="gm-row l"><span class="gm-n">02</span><span class="gm-st gm-st--live">Yayında</span><span class="gm-g">Minimalist · Bulmaca</span></span>
+              <span class="gm-t" lang="en">One Line</span>
+              <span class="gm-d">Tek çizgi, her kare. Her kareye bir kez uğrayarak çözülen minimalist bir yol bulmacası.</span>
+            </span>
+          </a>
+  
+          <a class="gm gm--c" style="--i:2" href="https://cedrainteractive.com/work/gunshot" target="_blank" rel="noopener noreferrer">
+            <span class="gm-media"><img src="assets/img/work/gunshot.webp" width="960" height="680" loading="lazy" decoding="async"
+              alt="Gunshot: karanlık bir zindanda Lich adlı boss'a karşı savaşan karakter, yukarıdan bakış."><i></i></span>
+            <span class="gm-cap">
+              <span class="gm-row l"><span class="gm-n">03</span><span class="gm-st gm-st--dev">Yapımda</span><span class="gm-g">Zindan · Yukarıdan bakış</span></span>
+              <span class="gm-t" lang="en">Gunshot</span>
+              <span class="gm-d">Yukarıdan bakışlı bir zindan oyunu; kendi yazdığımız motorda.</span>
+            </span>
+          </a>
+  
+          <a class="gm gm--d" style="--i:3" href="https://cedrainteractive.com/work/fineture" target="_blank" rel="noopener noreferrer">
+            <span class="gm-media"><img src="assets/img/work/fineture.webp" width="1024" height="576" loading="lazy" decoding="async"
+              alt="Fineture: bir ejderhanın karşısında dizilmiş pixel art kahramanlar ve “Sohbet et, kahramanın savaşsın” yazısı."><i></i></span>
+            <span class="gm-cap">
+              <span class="gm-row l"><span class="gm-n">04</span><span class="gm-st gm-st--live">Canlı</span><span class="gm-g"><span lang="en">Pixel RPG · Discord</span></span></span>
+              <span class="gm-t" lang="en">Fineture</span>
+              <span class="gm-d">Discord içinde oynanan bir <span lang="en">pixel RPG</span>. Sohbet et, kahramanın savaşsın.</span>
+            </span>
+          </a>
+  
+          <a class="gm-more l sf" style="--i:4" href="https://cedrainteractive.com" target="_blank" rel="noopener noreferrer">
+            <span>Bağımsız oyun stüdyosu</span><b><span lang="en">cedrainteractive.com</span> ↗</b>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <!-- ─────────────────────── DİL ─────────────────────── -->
+  <!-- ─────────────────────── DİL ─────────────────────── -->
+    <section class="wrap dil rv" id="dil" aria-labelledby="dil-t">
+      <div class="works-grid">
+        <div class="works-head l">
+          <span class="sf" style="--i:0" id="dil-t">Dil</span>
+          <span class="sf dim" style="--i:1"><span lang="en">EN</span> → TR</span>
+        </div>
+        <p class="dil-lede sf" style="--i:1">Çeviri kelime değiştirmek değil, haritayı yeniden çizmektir. İngilizce kelimeleri yan yana dizer; Türkçe yerlerini değiştirir, eklerle tek kelimede toplar.</p>
+      </div>
+  
+      <div class="dil-stage sf" style="--i:2" data-dil>
+        <div class="dil-top">
+          <p class="l dim dil-count"><span class="dil-now">01</span> / 04</p>
+          <div class="dil-nav" role="group" aria-label="Cümleler">
+            <button type="button" class="dil-go l" data-go="0" aria-pressed="true" aria-label="Cümle 1"><span>01</span><i></i></button>
+            <button type="button" class="dil-go l" data-go="1" aria-pressed="false" aria-label="Cümle 2"><span>02</span><i></i></button>
+            <button type="button" class="dil-go l" data-go="2" aria-pressed="false" aria-label="Cümle 3"><span>03</span><i></i></button>
+            <button type="button" class="dil-go l" data-go="3" aria-pressed="false" aria-label="Cümle 4"><span>04</span><i></i></button>
+            <button type="button" class="dil-pause" aria-pressed="false" aria-label="Döngüyü durdur">
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path class="dil-ic-pause" d="M3.5 2.5v7M8.5 2.5v7"/><path class="dil-ic-play" d="M3.5 2.2l6 3.8-6 3.8z"/></svg>
+            </button>
+          </div>
+        </div>
+  
+        <div class="dil-pairs">
+          <!-- 01 · "to my world" is one Turkish word -->
+          <figure class="dil-pair" data-n="0">
+            <svg class="dil-rib" aria-hidden="true"></svg>
+            <p class="dil-en" lang="en"><span class="dil-w" data-l="a b" data-a="a b">Welcome</span> <span class="dil-w" data-l="c" data-a="c">to</span> <span class="dil-w" data-l="d" data-a="d">my</span> <span class="dil-w" data-l="e" data-a="e">world</span><span class="dil-p">.</span></p>
+            <p class="dil-tr" lang="tr">
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="e" data-a="e">Dünya</span><span class="dil-m x" data-l="d" data-a="d">m</span><span class="dil-m y" data-l="c" data-a="c">a</span></span><span class="dil-sg"><b data-l="e">dünya</b>·<b data-l="d">m</b>·<b data-l="c">a</b></span><span class="dil-gl" lang="en"><b data-l="e">world</b>·<b data-l="d">my</b>·<b data-l="c">to</b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="a" data-a="a">hoş</span></span><span class="dil-sg"><b data-l="a">hoş</b></span><span class="dil-gl" lang="en"><b data-l="a">pleasant</b></span></span>
+              <span class="dil-u"><span class="dil-tw" data-l="b" data-a="b"><span class="dil-m" data-l="b z0">gel</span><span class="dil-m x" data-l="b z1">di</span><span class="dil-m y" data-l="b z2">n</span><span class="dil-p">.</span></span><span class="dil-sg"><b data-l="b z0">gel</b>·<b data-l="b z1">di</b>·<b data-l="b z2">n</b></span><span class="dil-gl" lang="en"><b data-l="b z0">come</b>·<b data-l="b z1"><abbr title="geçmiş zaman">PST</abbr></b>·<b data-l="b z2">you</b></span></span>
+            </p>
+            <figcaption class="dil-note">Ekler kelimeye yapışır: <span lang="en">“to my world”</span> Türkçede tek kelime, <em>dünyama</em>.</figcaption>
+          </figure>
+  
+          <!-- 02 · the verb goes last and carries its subject -->
+          <figure class="dil-pair" data-n="1">
+            <svg class="dil-rib" aria-hidden="true"></svg>
+            <p class="dil-en" lang="en"><span class="dil-w" data-l="a" data-a="a">We</span> <span class="dil-w" data-l="b" data-a="b">translate</span> <span class="dil-w" data-l="c d" data-a="c d">games</span> <span class="dil-w" data-l="e" data-a="e">into</span> <span class="dil-w" data-l="f" data-a="f">Turkish</span><span class="dil-p">.</span></p>
+            <p class="dil-tr" lang="tr">
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="c" data-a="c">Oyun</span><span class="dil-m x" data-l="d" data-a="d">lar</span><span class="dil-m y" data-l="z0">ı</span></span><span class="dil-sg"><b data-l="c">oyun</b>·<b data-l="d">lar</b>·<b data-l="z0">ı</b></span><span class="dil-gl" lang="en"><b data-l="c">game</b>·<b data-l="d"><abbr title="çoğul eki">PL</abbr></b>·<b data-l="z0"><abbr title="belirtme hâli">ACC</abbr></b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="f" data-a="f">Türkçe</span><span class="dil-m x" data-l="e" data-a="e">ye</span></span><span class="dil-sg"><b data-l="f">türkçe</b>·<b data-l="e">ye</b></span><span class="dil-gl" lang="en"><b data-l="f">Turkish</b>·<b data-l="e">into</b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="b" data-a="b">çevir</span><span class="dil-m x" data-l="z1">iyor</span><span class="dil-m y" data-l="a" data-a="a">uz</span><span class="dil-p">.</span></span><span class="dil-sg"><b data-l="b">çevir</b>·<b data-l="z1">iyor</b>·<b data-l="a">uz</b></span><span class="dil-gl" lang="en"><b data-l="b">translate</b>·<b data-l="z1"><abbr title="şimdiki zaman">PROG</abbr></b>·<b data-l="a">we</b></span></span>
+            </p>
+            <figcaption class="dil-note">Fiil sona gider ve özneyi içinde taşır: <em>-uz</em>, <span lang="en">“we”</span> demek.</figcaption>
+          </figure>
+  
+          <!-- 03 · one verb carries the whole predicate -->
+          <figure class="dil-pair" data-n="2">
+            <svg class="dil-rib" aria-hidden="true"></svg>
+            <p class="dil-en" lang="en"><span class="dil-w" data-l="a" data-a="a">We</span> <span class="dil-w" data-l="b c" data-a="b c">could</span><span class="dil-w" data-l="d" data-a="d">n’t</span> <span class="dil-w" data-l="e" data-a="e">play</span> <span class="dil-w dil-w0">it</span> <span class="dil-w" data-l="f" data-a="f">in</span> <span class="dil-w" data-l="g" data-a="g">our</span> <span class="dil-w" data-l="h" data-a="h">own</span> <span class="dil-w" data-l="i" data-a="i">language</span><span class="dil-p">.</span></p>
+            <p class="dil-tr" lang="tr">
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="h" data-a="h">Kendi</span></span><span class="dil-sg"><b data-l="h">kendi</b></span><span class="dil-gl" lang="en"><b data-l="h">own</b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="i" data-a="i">dil</span><span class="dil-m x" data-l="g" data-a="g">imiz</span><span class="dil-m y" data-l="f" data-a="f">de</span></span><span class="dil-sg"><b data-l="i">dil</b>·<b data-l="g">imiz</b>·<b data-l="f">de</b></span><span class="dil-gl" lang="en"><b data-l="i">language</b>·<b data-l="g">our</b>·<b data-l="f">in</b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="e" data-a="e">oyna</span><span class="dil-m x" data-l="b" data-a="b">ya</span><span class="dil-m y" data-l="d" data-a="d">mı</span><span class="dil-m x" data-l="z0">yor</span><span class="dil-m y" data-l="c" data-a="c">du</span><span class="dil-m x" data-l="a" data-a="a">k</span><span class="dil-p">.</span></span><span class="dil-sg"><b data-l="e">oyna</b>·<b data-l="b">ya</b>·<b data-l="d">mı</b>·<b data-l="z0">yor</b>·<b data-l="c">du</b>·<b data-l="a">k</b></span><span class="dil-gl" lang="en"><b data-l="e">play</b>·<b data-l="b">can</b>·<b data-l="d">not</b>·<b data-l="z0"><abbr title="şimdiki zaman">PROG</abbr></b>·<b data-l="c"><abbr title="geçmiş zaman">PST</abbr></b>·<b data-l="a">we</b></span></span>
+            </p>
+            <figcaption class="dil-note"><span lang="en">“We couldn’t play”</span> Türkçede tek fiil: <em>oyna·ya·mı·yor·du·k</em>. <span lang="en">“It”</span> düşer, bağlamdan anlaşılır.</figcaption>
+          </figure>
+  
+          <!-- 04 · the bio, in Turkish -->
+          <figure class="dil-pair" data-n="3">
+            <svg class="dil-rib" aria-hidden="true"></svg>
+            <p class="dil-en" lang="en"><span class="dil-w" data-l="a" data-a="a">Goodbye</span><span class="dil-p">,</span> <span class="dil-w" data-l="b" data-a="b">World</span><span class="dil-p">!</span></p>
+            <p class="dil-tr" lang="tr">
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="a" data-a="a">Elveda</span><span class="dil-p">,</span></span><span class="dil-sg"><b data-l="a">elveda</b></span><span class="dil-gl" lang="en"><b data-l="a">farewell</b></span></span>
+              <span class="dil-u"><span class="dil-tw"><span class="dil-m" data-l="b" data-a="b">Dünya</span><span class="dil-p">!</span></span><span class="dil-sg"><b data-l="b">dünya</b></span><span class="dil-gl" lang="en"><b data-l="b">world</b></span></span>
+            </p>
+            <figcaption class="dil-note">GitHub’daki <span lang="en">“Goodbye World!”</span> imzasının Türkçesi.</figcaption>
+          </figure>
+        </div>
+  
+        <p class="dil-hint l dim" aria-hidden="true"><span class="dil-hint-f">Bir kelimenin üstüne gel, karşılığı yansın</span><span class="dil-hint-t">Bir kelimeye dokun, karşılığı yansın</span></p>
+        <p class="dil-sr" aria-live="polite" data-dil-live></p>
+      </div>
+  
+      <div class="works-grid dil-foot">
+        <p class="dil-about sf" style="--i:0">Makine Çeviri bu haritayı oyunlar için çiziyor: ücretsiz Türkçe yamalar ve hepsini bir arada sunan Makine Launcher. 2019’dan beri büyüyen topluluk bugün 68 bin üye.</p>
+        <a class="dil-link l sf" style="--i:1" href="https://makineceviri.org" target="_blank" rel="noopener noreferrer"><span lang="en">makineceviri.org</span> <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+  <!-- ─────────────────────── YIĞIN ─────────────────────── -->
+  <!-- ─────────────────────── YIĞIN ─────────────────────── -->
+    <section class="wrap stack rv" id="yigin">
+      <div class="works-grid">
+        <div class="works-head l">
+          <span class="sf" style="--i:0">Yığın</span>
+          <span class="sf dim" style="--i:1">Her gün elimin altında</span>
+          <span class="sf dim" style="--i:2">11</span>
+        </div>
+  
+        <div class="kb sf" style="--i:1">
+          <div class="kb-case">
+            <div class="kb-plate" role="toolbar" aria-label="Araç kutusu: bir tuşa basın">
+            <button class="key key--acc" type="button" data-name="C++23" data-note="Makine launcher’ın çekirdeği" aria-label="C++23: Makine launcher’ın çekirdeği" tabindex="0"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1.02"><path d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/></svg></span></button>
+            <button class="key" type="button" data-name="Qt 6 · QML" data-note="launcher’ın her ekranı" aria-label="Qt 6 · QML: launcher’ın her ekranı" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1"><path d="M21.693 3.162H3.33L0 6.49v14.348h20.671L24 17.51V3.162zM12.785 18.4l-1.562.728-1.35-2.217c-.196.057-.499.09-.924.09-1.579 0-2.683-.425-3.305-1.276-.622-.85-.932-2.2-.932-4.033 0-1.84.319-3.206.949-4.098.63-.892 1.726-1.341 3.288-1.341 1.562 0 2.658.441 3.28 1.333.63.883.94 2.25.94 4.098 0 1.219-.13 2.2-.384 2.945-.261.752-.679 1.325-1.268 1.718zm4.736-1.587c-.858 0-1.447-.196-1.766-.59-.32-.392-.483-1.136-.483-2.232v-3.534H14.11V9.051h1.162V6.843h1.644V9.05h2.094v1.415h-2.094v3.346c0 .622.05 1.03.14 1.227.09.204.326.303.695.303l1.243-.05.073 1.326c-.67.13-1.186.196-1.546.196zm-8.58-9.08c-.95 0-1.604.311-1.963.94-.352.63-.532 1.629-.532 3.011 0 1.374.172 2.364.515 2.953.344.589 1.006.892 1.98.892.973 0 1.628-.295 1.971-.876.335-.58.507-1.57.507-2.953 0-1.39-.172-2.396-.523-3.026-.352-.63-1.006-.94-1.955-.94Z"/></svg></span></button>
+            <button class="key" type="button" data-name="CMake" data-note="tüm native derlemeler" aria-label="CMake: tüm native derlemeler" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:0.94"><path d="M11.769.066L.067 23.206l12.76-10.843zM23.207 23.934L7.471 17.587 0 23.934zM24 23.736L12.298.463l1.719 19.24zM12.893 12.959l-5.025 4.298 5.62 2.248z"/></svg></span></button>
+            <button class="key" type="button" data-name="Rust" data-note="Makine Discord botu" aria-label="Rust: Makine Discord botu" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1"><path d="M23.8346 11.7033l-1.0073-.6236a13.7268 13.7268 0 00-.0283-.2936l.8656-.8069a.3483.3483 0 00-.1154-.578l-1.1066-.414a8.4958 8.4958 0 00-.087-.2856l.6904-.9587a.3462.3462 0 00-.2257-.5446l-1.1663-.1894a9.3574 9.3574 0 00-.1407-.2622l.49-1.0761a.3437.3437 0 00-.0274-.3361.3486.3486 0 00-.3006-.154l-1.1845.0416a6.7444 6.7444 0 00-.1873-.2268l.2723-1.153a.3472.3472 0 00-.417-.4172l-1.1532.2724a14.0183 14.0183 0 00-.2278-.1873l.0415-1.1845a.3442.3442 0 00-.49-.328l-1.076.491c-.0872-.0476-.1742-.0952-.2623-.1407l-.1903-1.1673A.3483.3483 0 0016.256.955l-.9597.6905a8.4867 8.4867 0 00-.2855-.086l-.414-1.1066a.3483.3483 0 00-.5781-.1154l-.8069.8666a9.2936 9.2936 0 00-.2936-.0284L12.2946.1683a.3462.3462 0 00-.5892 0l-.6236 1.0073a13.7383 13.7383 0 00-.2936.0284L9.9803.3374a.3462.3462 0 00-.578.1154l-.4141 1.1065c-.0962.0274-.1903.0567-.2855.086L7.744.955a.3483.3483 0 00-.5447.2258L7.009 2.348a9.3574 9.3574 0 00-.2622.1407l-1.0762-.491a.3462.3462 0 00-.49.328l.0416 1.1845a7.9826 7.9826 0 00-.2278.1873L3.8413 3.425a.3472.3472 0 00-.4171.4171l.2713 1.1531c-.0628.075-.1255.1509-.1863.2268l-1.1845-.0415a.3462.3462 0 00-.328.49l.491 1.0761a9.167 9.167 0 00-.1407.2622l-1.1662.1894a.3483.3483 0 00-.2258.5446l.6904.9587a13.303 13.303 0 00-.087.2855l-1.1065.414a.3483.3483 0 00-.1155.5781l.8656.807a9.2936 9.2936 0 00-.0283.2935l-1.0073.6236a.3442.3442 0 000 .5892l1.0073.6236c.008.0982.0182.1964.0283.2936l-.8656.8079a.3462.3462 0 00.1155.578l1.1065.4141c.0273.0962.0567.1914.087.2855l-.6904.9587a.3452.3452 0 00.2268.5447l1.1662.1893c.0456.088.0922.1751.1408.2622l-.491 1.0762a.3462.3462 0 00.328.49l1.1834-.0415c.0618.0769.1235.1528.1873.2277l-.2713 1.1541a.3462.3462 0 00.4171.4161l1.153-.2713c.075.0638.151.1255.2279.1863l-.0415 1.1845a.3442.3442 0 00.49.327l1.0761-.49c.087.0486.1741.0951.2622.1407l.1903 1.1662a.3483.3483 0 00.5447.2268l.9587-.6904a9.299 9.299 0 00.2855.087l.414 1.1066a.3452.3452 0 00.5781.1154l.8079-.8656c.0972.0111.1954.0203.2936.0294l.6236 1.0073a.3472.3472 0 00.5892 0l.6236-1.0073c.0982-.0091.1964-.0183.2936-.0294l.8069.8656a.3483.3483 0 00.578-.1154l.4141-1.1066a8.4626 8.4626 0 00.2855-.087l.9587.6904a.3452.3452 0 00.5447-.2268l.1903-1.1662c.088-.0456.1751-.0931.2622-.1407l1.0762.49a.3472.3472 0 00.49-.327l-.0415-1.1845a6.7267 6.7267 0 00.2267-.1863l1.1531.2713a.3472.3472 0 00.4171-.416l-.2713-1.1542c.0628-.0749.1255-.1508.1863-.2278l1.1845.0415a.3442.3442 0 00.328-.49l-.49-1.076c.0475-.0872.0951-.1742.1407-.2623l1.1662-.1893a.3483.3483 0 00.2258-.5447l-.6904-.9587.087-.2855 1.1066-.414a.3462.3462 0 00.1154-.5781l-.8656-.8079c.0101-.0972.0202-.1954.0283-.2936l1.0073-.6236a.3442.3442 0 000-.5892zm-6.7413 8.3551a.7138.7138 0 01.2986-1.396.714.714 0 11-.2997 1.396zm-.3422-2.3142a.649.649 0 00-.7715.5l-.3573 1.6685c-1.1035.501-2.3285.7795-3.6193.7795a8.7368 8.7368 0 01-3.6951-.814l-.3574-1.6684a.648.648 0 00-.7714-.499l-1.473.3158a8.7216 8.7216 0 01-.7613-.898h7.1676c.081 0 .1356-.0141.1356-.088v-2.536c0-.074-.0536-.0881-.1356-.0881h-2.0966v-1.6077h2.2677c.2065 0 1.1065.0587 1.394 1.2088.0901.3533.2875 1.5044.4232 1.8729.1346.413.6833 1.2381 1.2685 1.2381h3.5716a.7492.7492 0 00.1296-.0131 8.7874 8.7874 0 01-.8119.9526zM6.8369 20.024a.714.714 0 11-.2997-1.396.714.714 0 01.2997 1.396zM4.1177 8.9972a.7137.7137 0 11-1.304.5791.7137.7137 0 011.304-.579zm-.8352 1.9813l1.5347-.6824a.65.65 0 00.33-.8585l-.3158-.7147h1.2432v5.6025H3.5669a8.7753 8.7753 0 01-.2834-3.348zm6.7343-.5437V8.7836h2.9601c.153 0 1.0792.1772 1.0792.8697 0 .575-.7107.7815-1.2948.7815zm10.7574 1.4862c0 .2187-.008.4363-.0243.651h-.9c-.09 0-.1265.0586-.1265.1477v.413c0 .973-.5487 1.1846-1.0296 1.2382-.4576.0517-.9648-.1913-1.0275-.4717-.2704-1.5186-.7198-1.8436-1.4305-2.4034.8817-.5599 1.799-1.386 1.799-2.4915 0-1.1936-.819-1.9458-1.3769-2.3153-.7825-.5163-1.6491-.6195-1.883-.6195H5.4682a8.7651 8.7651 0 014.907-2.7699l1.0974 1.151a.648.648 0 00.9182.0213l1.227-1.1743a8.7753 8.7753 0 016.0044 4.2762l-.8403 1.8982a.652.652 0 00.33.8585l1.6178.7188c.0283.2875.0425.577.0425.8717zm-9.3006-9.5993a.7128.7128 0 11.984 1.0316.7137.7137 0 01-.984-1.0316zm8.3389 6.71a.7107.7107 0 01.9395-.3625.7137.7137 0 11-.9405.3635z"/></svg></span></button>
+            <button class="key" type="button" data-name="TypeScript" data-note="siteler ve Worker’lar" aria-label="TypeScript: siteler ve Worker’lar" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:0.88"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg></span></button>
+            <button class="key" type="button" data-name="Cloudflare" data-note="Workers · R2 · D1, her şeyin koştuğu kenar ağı" aria-label="Cloudflare: Workers · R2 · D1, her şeyin koştuğu kenar ağı" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1.18"><path d="M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.119-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5683 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611 0-.2383.0112-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1132.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727"/></svg></span></button>
+            <button class="key" type="button" data-name="Unity · C#" data-note="CEDRA prototipleri ve bir Unity MCP sunucusu" aria-label="Unity · C#: CEDRA prototipleri ve bir Unity MCP sunucusu" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:0.96"><path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z"/></svg></span></button>
+            <button class="key" type="button" data-name="raylib" data-note="One Line’ın motoru, Android’de native C++" aria-label="raylib: One Line’ın motoru, Android’de native C++" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><b class="key-word" lang="en">raylib</b></span></button>
+            <button class="key" type="button" data-name="Kotlin" data-note="Android tarafı" aria-label="Kotlin: Android tarafı" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:0.84"><path d="M24 24H0V0h24L12 12Z"/></svg></span></button>
+            <button class="key" type="button" data-name="Python" data-note="araçlar ve derleme betikleri" aria-label="Python: araçlar ve derleme betikleri" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg></span></button>
+            <button class="key" type="button" data-name="Blender" data-note="modeller ve render’lar" aria-label="Blender: modeller ve render’lar" tabindex="-1"><span class="key-skirt"></span><span class="key-top"><svg viewBox="0 0 24 24" aria-hidden="true" style="--s:1.08"><path d="M12.51 13.214c.046-.8.438-1.506 1.03-2.006a3.424 3.424 0 0 1 2.212-.79c.85 0 1.631.3 2.211.79.592.5.983 1.206 1.028 2.005.045.823-.285 1.586-.865 2.153a3.389 3.389 0 0 1-2.374.938 3.393 3.393 0 0 1-2.376-.938c-.58-.567-.91-1.33-.865-2.152M7.35 14.831c.006.314.106.922.256 1.398a7.372 7.372 0 0 0 1.593 2.757 8.227 8.227 0 0 0 2.787 2.001 8.947 8.947 0 0 0 3.66.76 8.964 8.964 0 0 0 3.657-.772 8.285 8.285 0 0 0 2.785-2.01 7.428 7.428 0 0 0 1.592-2.762 6.964 6.964 0 0 0 .25-3.074 7.123 7.123 0 0 0-1.016-2.779 7.764 7.764 0 0 0-1.852-2.043h.002L13.566 2.55l-.02-.015c-.492-.378-1.319-.376-1.86.002-.547.382-.609 1.015-.123 1.415l-.001.001 3.126 2.543-9.53.01h-.013c-.788.001-1.545.518-1.695 1.172-.154.665.38 1.217 1.2 1.22V8.9l4.83-.01-8.62 6.617-.034.025c-.813.622-1.075 1.658-.563 2.313.52.667 1.625.668 2.447.004L7.414 14s-.069.52-.063.831zm12.09 1.741c-.97.988-2.326 1.548-3.795 1.55-1.47.004-2.827-.552-3.797-1.538a4.51 4.51 0 0 1-1.036-1.622 4.282 4.282 0 0 1 .282-3.519 4.702 4.702 0 0 1 1.153-1.371c.942-.768 2.141-1.183 3.396-1.185 1.256-.002 2.455.41 3.398 1.175.48.391.87.854 1.152 1.367a4.28 4.28 0 0 1 .522 1.706 4.236 4.236 0 0 1-.239 1.811 4.54 4.54 0 0 1-1.035 1.626"/></svg></span></button>
+            </div>
+          </div>
+          <div class="kb-out" aria-hidden="true">
+            <span class="kb-line"><span class="kb-p">›</span><span class="kb-name"></span><span class="kb-note">CEDRA, Makine Çeviri ve Finetion’ın arkasındaki araç kutusu</span><span class="kb-caret"></span></span>
+            <span class="kb-count"><span class="kb-i">00</span> / 11</span>
+          </div>
+          <p class="kb-live" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
 
   <!-- SERTİFİKALAR -->
   <section class="wrap certs rv" id="sertifikalar">
@@ -355,24 +562,40 @@
 
   <!-- ─────────────────────── FOOTER ─────────────────────── -->
   <footer class="wrap foot rv" id="iletisim">
-    <p class="l dim net-label">Network</p>
-    <div class="strip" id="strip" data-par=".03"></div>
+    <div class="works-grid">
+      <div class="works-head l">
+        <span class="sf" style="--i:0">İletişim</span>
+      </div>
+      <div class="cta">
+        <h2 class="d cta-t">
+          <span class="m" style="--i:0"><span>Bir fikrin mi var?</span></span>
+          <span class="m" style="--i:1"><span class="acc">Konuşalım.</span></span>
+        </h2>
+        <ul class="mails sf" style="--i:1">
+          <li><a class="mail" href="mailto:sezeruzun@cedrainteractive.com">sezeruzun@<wbr>cedrainteractive.com</a><button class="copy l" type="button" data-copy="sezeruzun@cedrainteractive.com">Kopyala</button></li>
+          <li><a class="mail" href="mailto:sezeruzun@makineceviri.org">sezeruzun@<wbr>makineceviri.org</a><button class="copy l" type="button" data-copy="sezeruzun@makineceviri.org">Kopyala</button></li>
+        </ul>
+      </div>
+    </div>
 
-    <div class="foot-g" data-par=".04">
+    <div class="foot-g">
       <div class="sf" style="--i:0">
-        <p class="l dim" style="margin:0 0 .7rem">İletişim</p>
-        <div class="mails">
-          <a class="mail" href="mailto:sezeruzun@cedrainteractive.com">sezeruzun@cedrainteractive.com</a>
-          <a class="mail" href="mailto:sezeruzun@makineceviri.org">sezeruzun@makineceviri.org</a>
-        </div>
+        <p class="l dim net-label" lang="en">Network</p>
+        <div class="strip" id="strip"></div>
       </div>
       <div class="sf" style="--i:2">
-        <p class="l dim" style="margin:0 0 .7rem">Dip Not</p>
+        <p class="l dim net-label">Dip Not</p>
         <blockquote class="quote">
           <p>Hürriyet ve istiklâl benim karakterimdir.</p>
           <cite class="l">Gazi Mustafa Kemal Atatürk</cite>
         </blockquote>
       </div>
+    </div>
+
+    <div class="foot-base l dim">
+      <span>&copy; 2026 Sezer Uzun</span>
+      <span class="foot-map"><kbd>M</kbd> sayfanın haritası</span>
+      <a href="#top">Başa dön &uarr;</a>
     </div>
   </footer>
 </main>
@@ -401,5 +624,8 @@
 </div>
 
 <script src="assets/js/site.js"></script>
+<script src="assets/js/oyunlar.js"></script>
+<script src="assets/js/dil.js"></script>
+<script src="assets/js/yigin.js"></script>
 </body>
 </html>

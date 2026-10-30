@@ -10,12 +10,19 @@ CSS ve tek bir vanilla JS dosyası.
 ```
 index.html              tek sayfa; tüm bölümler burada
 assets/
-  css/site.css          tokenler, modüler tip ölçeği, tüm bileşenler
-  js/site.js            atalet kaydırma, imleç, kanvas efektleri, harita
+  css/site.css          tokenler, modüler tip ölçeği, ortak bileşenler
+  css/oyunlar.css       Oyunlar: CEDRA kapakları, gün batımı duotone
+  css/dil.css           Dil: İngilizce → Türkçe hizalama sahnesi
+  css/yigin.css         Yığın: tuş takımı
+  js/site.js            atalet kaydırma, imleç, menü, manifesto, sayaçlar, harita
+  js/oyunlar.js         dokunmatikte kartı yerinde açar
+  js/dil.js             hizalama şeritleri, döngü, vurgulama
+  js/yigin.js           tuş basma, okuma satırı, otomatik demo
   img/
     hero-sunset.jpg     hero fotoğrafı (palet buradan örneklendi)
     og-cover.jpg        paylaşım kartı
     favicon.svg
+    work/*.webp         CEDRA oyun kapakları
     logo-*.{png,webp}   sistemler listesindeki marka işaretleri
     cert/*.webp         sertifika görselleri (satır üstüne gelince açılır)
 tools/

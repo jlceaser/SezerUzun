@@ -1,0 +1,148 @@
+/* ============================================================
+   OYUNLAR — CEDRA Interactive's games as four media windows.
+   The covers are loud and off-palette, so each rests in a sunset
+   duotone (ink shadows, peach light) and blooms to its own colours
+   on hover, focus, or — on touch — when it reaches mid-screen.
+   Two staggered rows: wide · narrow, then narrow · wide.
+   ============================================================ */
+.games{ padding-block:var(--sp7); }
+.gm-grid{
+  grid-column:4 / span 5;
+  --g:var(--gap);
+  display:grid; grid-template-columns:repeat(12, minmax(0, 1fr));
+  gap:var(--sp5) var(--g);
+}
+@media (max-width:860px){ .gm-grid{ grid-column:1 / -1; } }
+
+.gm--a, .gm--d{ grid-column:span 7; }
+.gm--b, .gm--c{ grid-column:span 5; }
+/* Both windows in a row share the wide one's height: 16:10 above, 16:9 below. Each card is its own container, so a
+   narrow card rebuilds its wide neighbour's width from its own: w7 = (w5 - 4g) * 7/5 + 6g. */
+.gm--a, .gm--b{ --k:.625; }
+.gm--c, .gm--d{ --k:.5625; }
+.gm--a .gm-media, .gm--d .gm-media{ height:calc(100cqi * var(--k)); }
+.gm--b .gm-media, .gm--c .gm-media{ height:calc(((100cqi - 4 * var(--g)) * 1.4 + 6 * var(--g)) * var(--k)); }
+/* the narrow windows drop half a step, so the rows read as a stagger, not a table */
+.gm--b, .gm--c{ margin-top:var(--sp5); }
+
+@media (max-width:640px){
+  .gm-grid{ grid-template-columns:minmax(0, 1fr); row-gap:var(--sp5); }
+  .gm--a, .gm--b, .gm--c, .gm--d{ grid-column:1 / -1; margin-top:0; }
+  .gm .gm-media{ height:auto; aspect-ratio:16 / 10; }
+  .gm-more{ flex-direction:column; gap:.35rem; }
+}
+
+.gm{ position:relative; display:flex; flex-direction:column; min-width:0; color:inherit; }
+.gm{ container-type:inline-size; }   /* the card sizes its own window and caption */
+.gm:focus-visible{ outline:none; }
+.gm:focus-visible .gm-media{ outline:2px solid var(--accent); outline-offset:4px; }
+
+/* ---------- the window ---------- */
+.gm-media{
+  position:relative; display:block; overflow:hidden; isolation:isolate;
+  background:#171C1E;
+  box-shadow:0 0 0 1px var(--hair);
+}
+.gm-media img{
+  position:absolute; inset:0; width:100%; height:100%; display:block;
+  object-fit:cover; object-position:var(--pos, 50% 50%);
+  filter:grayscale(1) contrast(1.12) brightness(.9);
+  transform:scale(1.035);
+  transition:filter 1s var(--ease), transform 1.4s var(--ease);
+}
+/* duotone: lighten lifts black to a warm coal, multiply tints white to peach */
+.gm-media::before, .gm-media::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  transition:opacity .9s var(--ease);
+}
+.gm-media::before{ background:#2B140B; mix-blend-mode:lighten; }
+.gm-media::after{
+  background:linear-gradient(155deg, #FFD2AA 0%, #FDB68F 30%, #FC7B34 68%, #B04214 100%);
+  mix-blend-mode:multiply;
+}
+/* a horizon of light at the foot of every window — the site's glow */
+.gm-media i{
+  position:absolute; inset:auto 0 0 0; height:46%; z-index:2; pointer-events:none;
+  background:linear-gradient(to top, rgb(23 28 30 / .72), rgb(23 28 30 / 0));
+  transition:opacity .9s var(--ease);
+}
+
+.gm:hover .gm-media img, .gm:focus-visible .gm-media img, .gm.lit .gm-media img{
+  filter:none; transform:scale(1);
+}
+.gm:hover .gm-media::before, .gm:hover .gm-media::after,
+.gm:focus-visible .gm-media::before, .gm:focus-visible .gm-media::after,
+.gm.lit .gm-media::before, .gm.lit .gm-media::after{ opacity:0; }
+.gm:hover .gm-media i, .gm:focus-visible .gm-media i, .gm.lit .gm-media i{ opacity:.35; }
+
+/* ---------- the caption, led by a hairline ---------- */
+.gm-cap{ display:flex; flex-direction:column; padding-top:var(--sp2); }
+.gm-row{
+  display:flex; flex-wrap:wrap; align-items:center; gap:.3rem .9rem;
+  padding-bottom:var(--sp2); border-bottom:1px solid var(--hair);
+  position:relative;
+}
+/* the hairline fills with the accent from the left as the window blooms */
+.gm-row::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+  background:var(--accent); transform:scaleX(0); transform-origin:0 50%;
+  transition:transform .8s var(--ease);
+}
+.gm:hover .gm-row::after, .gm:focus-visible .gm-row::after, .gm.lit .gm-row::after{ transform:scaleX(1); }
+.gm-n{ color:var(--dim); font-variant-numeric:tabular-nums; }
+.gm-g{ margin-left:auto; color:var(--dim); text-align:right; }
+/* a narrow card has no room for the genre beside the status: it takes its own line, flush left */
+@container (max-width:27rem){ .gm-g{ flex-basis:100%; margin-left:0; text-align:left; } }
+
+.gm-st{ display:inline-flex; align-items:center; gap:.5em; white-space:nowrap; }
+.gm-st::before{
+  content:""; width:6px; height:6px; border-radius:50%; flex:none;
+  box-shadow:inset 0 0 0 1px currentColor;
+}
+.gm-st--dev{ color:var(--fg); }
+.gm-st--live{ color:var(--accent); }
+.gm-st--live::before{ background:currentColor; animation:gmPulse 2.4s ease-in-out infinite; }
+@keyframes gmPulse{
+  0%, 100%{ box-shadow:0 0 0 0 rgb(252 123 52 / .55); }
+  50%     { box-shadow:0 0 0 5px rgb(252 123 52 / 0); }
+}
+
+.gm-t{
+  margin-top:var(--sp3);
+  font-weight:500; font-size:var(--t3); line-height:var(--lh3); letter-spacing:var(--tr3);
+  transition:color .4s ease;
+  display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+}
+.gm-t::after{
+  content:"↗"; color:var(--accent); font-size:var(--t1); line-height:1;
+  opacity:0; transform:translate(-6px, 6px);
+  transition:opacity .45s ease, transform .55s var(--ease);
+}
+.gm:hover .gm-t, .gm:focus-visible .gm-t{ color:var(--accent); }
+.gm:hover .gm-t::after, .gm:focus-visible .gm-t::after{ opacity:1; transform:none; }
+.gm-d{ margin-top:var(--sp1); color:var(--dim); max-width:44ch; text-wrap:pretty; }
+
+/* ---------- the studio line under the grid ---------- */
+.gm-more{
+  grid-column:1 / -1;
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+  padding-top:var(--sp3); border-top:1px solid var(--hair);
+  color:var(--dim); transition:color .4s ease;
+}
+.gm-more b{ font-weight:500; color:var(--fg); white-space:nowrap; transition:color .4s ease; }
+.gm-more:hover, .gm-more:hover b{ color:var(--accent); }
+.gm-more:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
+
+/* windows arrive like the work rows: a short rise, staggered */
+.js .rv .gm{ opacity:0; transform:translate3d(0, 22px, 0); }
+.rv.on .gm{
+  animation:gmIn 1s var(--ease) forwards;
+  animation-delay:calc(var(--i, 0) * 110ms + 120ms);
+}
+@keyframes gmIn{ to{ opacity:1; transform:none; } }
+
+@media (prefers-reduced-motion: reduce){
+  .js .rv .gm, .rv.on .gm{ opacity:1; transform:none; animation:none !important; }
+  .gm-media img, .gm-media::before, .gm-media::after, .gm-media i, .gm-row::after{ transition:none; }
+  .gm-st--live::before{ animation:none; }
+}

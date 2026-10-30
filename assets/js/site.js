@@ -140,18 +140,88 @@
       cur.style.opacity = 1;
       if (ring) ring.style.opacity = 1;
     }, { passive:true });
-    document.querySelectorAll('a,button').forEach(function(el){
-      el.addEventListener('mouseenter', function(){
-        /* the dot is difference-blended: at 64px over a sunset tile it inverts
-           to a blue disc and swallows the mark, so the tiles keep the small dot */
-        if (!el.classList.contains('net')) cur.classList.add('big');
-        if (ring) ring.classList.add('big');
-      });
-      el.addEventListener('mouseleave', function(){
-        cur.classList.remove('big'); if (ring) ring.classList.remove('big');
-      });
+    /* delegated, so controls that modules build later grow the cursor too */
+    var HOT = 'a,button,[data-hover]';
+    document.addEventListener('mouseover', function(e){
+      var el = e.target.closest && e.target.closest(HOT);
+      if (!el) return;
+      /* the dot is difference-blended: at 64px over a sunset tile it inverts
+         to a blue disc and swallows the mark, so the tiles keep the small dot */
+      if (!el.classList.contains('net')) cur.classList.add('big');
+      if (ring) ring.classList.add('big');
+    });
+    document.addEventListener('mouseout', function(e){
+      var el = e.target.closest && e.target.closest(HOT);
+      if (!el || (e.relatedTarget && el.contains(e.relatedTarget))) return;
+      cur.classList.remove('big'); if (ring) ring.classList.remove('big');
     });
   }
+
+  /* ---------- the hour in Türkiye, beside the live dot ---------- */
+  (function(){
+    var el = document.getElementById('clock');
+    if (!el || !window.Intl) return;
+    var fmt = new Intl.DateTimeFormat('tr-TR', { hour:'2-digit', minute:'2-digit', timeZone:'Europe/Istanbul' });
+    function tick(){ el.textContent = fmt.format(new Date()); }
+    tick();
+    setInterval(tick, 15000);
+  })();
+
+  /* ---------- copy an address without leaving the page ---------- */
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    var idle = b.textContent, t = null;
+    b.addEventListener('click', function(){
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(b.dataset.copy).then(function(){
+        b.textContent = 'Kopyalandı'; b.classList.add('done');
+        clearTimeout(t);
+        t = setTimeout(function(){ b.textContent = idle; b.classList.remove('done'); }, 1800);
+      }, function(){});
+    });
+  });
+
+  /* ---------- manifesto: the sentence lights word by word as it is read ---------- */
+  var maniT = document.getElementById('maniT'), maniW = [];
+  if (maniT){
+    var words = maniT.textContent.trim().split(/\s+/);
+    maniT.textContent = '';
+    words.forEach(function(w, k){
+      var sp = document.createElement('span');
+      sp.className = 'w';
+      sp.textContent = w;
+      maniT.appendChild(sp);
+      if (k < words.length - 1) maniT.appendChild(document.createTextNode(' '));
+      maniW.push(sp);
+    });
+    if (reduce) maniW.forEach(function(w){ w.classList.add('lit'); });
+  }
+
+  /* ---------- the facts count up once, when they arrive ---------- */
+  (function(){
+    var nums = [].slice.call(document.querySelectorAll('[data-count]'));
+    if (!nums.length || reduce || !('IntersectionObserver' in window)) return;
+    nums.forEach(function(n){ n.textContent = n.dataset.from || '0'; });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, from = +(el.dataset.from || 0), to = +el.dataset.count, t0 = null;
+        (function step(ts){
+          if (t0 === null) t0 = ts;
+          var p = clamp((ts - t0) / 1600, 0, 1), k = 1 - Math.pow(1 - p, 4);
+          el.textContent = Math.round(from + (to - from) * k);
+          if (p < 1) requestAnimationFrame(step);
+        })(performance.now());
+      });
+    }, { threshold:.6 });
+    nums.forEach(function(n){ io.observe(n); });
+  })();
+
+  /* ---------- nav: solid once past the photo, and it knows where you are ---------- */
+  var nav = document.getElementById('nav');
+  var spy = [].slice.call(document.querySelectorAll('.nav-links a')).map(function(a){
+    return { a: a, el: document.querySelector(a.getAttribute('href')) };
+  }).filter(function(x){ return x.el; });
 
   /* ---------- work row previews ---------- */
   [].slice.call(document.querySelectorAll('.wk')).forEach(function(row){
@@ -370,12 +440,14 @@
   function buildMap(){
     if (!mapEl || !mapCity) return;
     var parts = [
-      { el: document.getElementById('kimlik'),    n:'01', name:'Kimlik' },
-      { el: document.querySelector('.stmt'),      n:'—',  name:'Manifesto' },
-      { el: document.getElementById('sistemler'), n:'02', name:'Sistemler' },
-      { el: document.getElementById('sertifikalar'), n:'03', name:'Sertifikalar' },
-      { el: document.getElementById('yol'),       n:'04', name:'Yol' },
-      { el: document.getElementById('iletisim'),  n:'04', name:'İletişim' }
+      { el: document.getElementById('kimlik'),       n:'01', name:'Kimlik' },
+      { el: document.getElementById('manifesto'),    n:'02', name:'Kısaca' },
+      { el: document.getElementById('sistemler'),    n:'03', name:'Sistemler' },
+      { el: document.getElementById('oyunlar'),      n:'04', name:'Oyunlar' },
+      { el: document.getElementById('dil'),          n:'05', name:'Dil' },
+      { el: document.getElementById('yigin'),        n:'06', name:'Yığın' },
+      { el: document.getElementById('sertifikalar'), n:'07', name:'Sertifikalar' },
+      { el: document.getElementById('iletisim'),     n:'08', name:'İletişim' }
     ].filter(function(x){ return x.el; });
 
     var total = document.documentElement.scrollHeight || 1;
@@ -534,6 +606,19 @@
       var pe = parEls[q2], pr = pe.getBoundingClientRect();
       var away = (pr.top + pr.height / 2) - vh / 2;
       pe.style.transform = 'translate3d(0,' + (-away * parseFloat(pe.dataset.par)).toFixed(1) + 'px,0)';
+    }
+
+    if (maniW.length && !reduce){
+      var mr = maniT.getBoundingClientRect();
+      var lit = Math.round(clamp((vh * .8 - mr.top) / (mr.height + vh * .25), 0, 1) * maniW.length);
+      for (var w = 0; w < maniW.length; w++) maniW[w].classList.toggle('lit', w < lit);
+    }
+
+    if (nav){
+      nav.classList.toggle('solid', smooth > vh * .7);
+      var here = null;
+      for (var s = 0; s < spy.length; s++) if (spy[s].el.getBoundingClientRect().top < vh * .45) here = spy[s].a;
+      for (var s2 = 0; s2 < spy.length; s2++) spy[s2].a.classList.toggle('here', spy[s2].a === here);
     }
 
     if (motes) motes(0, vel);
