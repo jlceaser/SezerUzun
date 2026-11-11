@@ -35,6 +35,7 @@
 <meta name="twitter:description" content="CEDRA Interactive&rsquo;in kurucusu, Finetion ve Makine Çeviri&rsquo;nin kurucu ortağı; oyun yönetmeni ve full-stack geliştirici.">
 <meta name="twitter:image" content="https://jlceaser.github.io/SezerUzun/assets/img/og-cover.jpg">
 
+<script>document.documentElement.className += " js";</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
@@ -167,8 +168,7 @@
 </div>
 
 <div class="grain" id="grain" aria-hidden="true"></div>
-<div class="cur" id="cur" aria-hidden="true"></div>
-<div class="ring" id="ring" aria-hidden="true"></div>
+<div class="veil" id="veil" aria-hidden="true"></div>
 <div class="prev" id="prev" aria-hidden="true"><i></i></div>
 
 <!-- ───────────────────────────── nav ───────────────────────────── -->
@@ -227,6 +227,7 @@
 
   <!-- ─────────────────────── MANIFESTO ─────────────────────── -->
   <section class="wrap mani rv" id="manifesto">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">02</span><i class="ln"></i><span>08</span></div>
     <div class="works-grid">
       <div class="works-head l">
         <span class="sf" style="--i:0">Kısaca</span>
@@ -245,6 +246,7 @@
 
   <!-- ─────────────────────── WORKS ─────────────────────── -->
   <section class="wrap works rv" id="sistemler">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">03</span><i class="ln"></i><span>08</span></div>
     <div class="works-grid">
       <div class="works-head l">
         <span class="sf" style="--i:0">Sistemler</span>
@@ -290,6 +292,7 @@
   <!-- ─────────────────────── OYUNLAR ─────────────────────── -->
   <!-- ─────────────────────── OYUNLAR ─────────────────────── -->
     <section class="wrap games rv" id="oyunlar">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">04</span><i class="ln"></i><span>08</span></div>
       <div class="works-grid">
         <div class="works-head l">
           <span class="sf" style="--i:0">Oyunlar</span>
@@ -339,7 +342,7 @@
           </a>
   
           <a class="gm-more l sf" style="--i:4" href="https://cedrainteractive.com" target="_blank" rel="noopener noreferrer">
-            <span>Bağımsız oyun stüdyosu</span><b><span lang="en">cedrainteractive.com</span> ↗</b>
+            <span>Bağımsız oyun stüdyosu</span><b><span lang="en">cedrainteractive.com</span><i class="go" aria-hidden="true">↗</i></b>
           </a>
         </div>
       </div>
@@ -348,6 +351,7 @@
   <!-- ─────────────────────── DİL ─────────────────────── -->
   <!-- ─────────────────────── DİL ─────────────────────── -->
     <section class="wrap dil rv" id="dil" aria-labelledby="dil-t">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">05</span><i class="ln"></i><span>08</span></div>
       <div class="works-grid">
         <div class="works-head l">
           <span class="sf" style="--i:0" id="dil-t">Dil</span>
@@ -425,13 +429,14 @@
   
       <div class="works-grid dil-foot">
         <p class="dil-about sf" style="--i:0">Makine Çeviri bu haritayı oyunlar için çiziyor: ücretsiz Türkçe yamalar ve hepsini bir arada sunan Makine Launcher. 2019’dan beri büyüyen topluluk bugün 68 bin üye.</p>
-        <a class="dil-link l sf" style="--i:1" href="https://makineceviri.org" target="_blank" rel="noopener noreferrer"><span lang="en">makineceviri.org</span> <span aria-hidden="true">↗</span></a>
+        <a class="dil-link l sf" style="--i:1" href="https://makineceviri.org" target="_blank" rel="noopener noreferrer"><span lang="en">makineceviri.org</span><i class="go" aria-hidden="true">↗</i></a>
       </div>
     </section>
 
   <!-- ─────────────────────── YIĞIN ─────────────────────── -->
   <!-- ─────────────────────── YIĞIN ─────────────────────── -->
     <section class="wrap stack rv" id="yigin">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">06</span><i class="ln"></i><span>08</span></div>
       <div class="works-grid">
         <div class="works-head l">
           <span class="sf" style="--i:0">Yığın</span>
@@ -466,6 +471,7 @@
 
   <!-- SERTİFİKALAR -->
   <section class="wrap certs rv" id="sertifikalar">
+    <div class="seam l" aria-hidden="true"><span class="seam-n">07</span><i class="ln"></i><span>08</span></div>
     <div class="works-grid">
       <div class="works-head l">
         <span class="sf" style="--i:0">Sertifikalar</span>
@@ -569,6 +575,7 @@
 
   <!-- ─────────────────────── FOOTER ─────────────────────── -->
   <footer class="wrap foot rv" id="iletisim">
+    <div class="seam seam--arc l" aria-hidden="true"><span class="seam-n">08</span><span>08</span></div>
     <div class="works-grid">
       <div class="works-head l">
         <span class="sf" style="--i:0">İletişim</span>
@@ -602,7 +609,18 @@
     <div class="foot-base l dim">
       <span>&copy; 2026 Sezer Uzun</span>
       <span class="foot-map"><kbd>M</kbd> sayfanın haritası</span>
-      <a href="#top">Başa dön &uarr;</a>
+      <a class="foot-top" href="#top">Başa dön<i class="go" aria-hidden="true">&uarr;</i></a>
+    </div>
+
+    <div class="mark-xl sf" aria-hidden="true" lang="en">
+      <svg viewBox="44 0 912 204" role="presentation" focusable="false">
+        <defs><linearGradient id="markFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset=".2" stop-color="#FDB68F" stop-opacity=".34"/>
+          <stop offset=".52" stop-color="#FC7B34" stop-opacity=".15"/>
+          <stop offset=".82" stop-color="#B04214" stop-opacity=".02"/>
+        </linearGradient></defs>
+        <text x="500" y="196" text-anchor="middle" textLength="886" lengthAdjust="spacingAndGlyphs" font-size="262" font-weight="500" fill="url(#markFade)">Ceaser</text>
+      </svg>
     </div>
   </footer>
 </main>
@@ -623,12 +641,6 @@
 </div>
 
 <div class="prog" id="prog"></div>
-
-<div class="sticky" lang="tr">
-  <div class="huge" aria-hidden="true"><span></span><span>Ceaser</span></div>
-  <div class="meta l">
-  </div>
-</div>
 
 <script src="assets/js/site.js"></script>
 <script src="assets/js/oyunlar.js"></script>

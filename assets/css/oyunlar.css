@@ -5,7 +5,6 @@
    on hover, focus, or — on touch — when it reaches mid-screen.
    Two staggered rows: wide · narrow, then narrow · wide.
    ============================================================ */
-.games{ padding-block:var(--sp7); }
 .gm-grid{
   grid-column:4 / span 5;
   --g:var(--gap);
@@ -29,7 +28,7 @@
   .gm-grid{ grid-template-columns:minmax(0, 1fr); row-gap:var(--sp5); }
   .gm--a, .gm--b, .gm--c, .gm--d{ grid-column:1 / -1; margin-top:0; }
   .gm .gm-media{ height:auto; aspect-ratio:16 / 10; }
-  .gm-more{ flex-direction:column; gap:.35rem; }
+  .gm-more{ flex-direction:column; align-items:flex-start; gap:.6rem; }
 }
 
 .gm{ position:relative; display:flex; flex-direction:column; min-width:0; color:inherit; }
@@ -125,24 +124,21 @@
 /* ---------- the studio line under the grid ---------- */
 .gm-more{
   grid-column:1 / -1;
-  display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+  display:flex; justify-content:space-between; align-items:center; gap:1rem;
   padding-top:var(--sp3); border-top:1px solid var(--hair);
   color:var(--dim); transition:color .4s ease;
 }
-.gm-more b{ font-weight:500; color:var(--fg); white-space:nowrap; transition:color .4s ease; }
+.gm-more b{ font-weight:500; color:var(--fg); white-space:nowrap; transition:color .4s ease; display:inline-flex; align-items:center; }
 .gm-more:hover, .gm-more:hover b{ color:var(--accent); }
 .gm-more:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
 
 /* windows arrive like the work rows: a short rise, staggered */
 .js .rv .gm{ opacity:0; transform:translate3d(0, 22px, 0); }
-.rv.on .gm{
-  animation:gmIn 1s var(--ease) forwards;
-  animation-delay:calc(var(--i, 0) * 110ms + 120ms);
-}
+.js .rv .gm.in{ animation:gmIn 1s var(--ease) var(--d, 0ms) forwards; }
 @keyframes gmIn{ to{ opacity:1; transform:none; } }
 
 @media (prefers-reduced-motion: reduce){
-  .js .rv .gm, .rv.on .gm{ opacity:1; transform:none; animation:none !important; }
+  .js .rv .gm, .js .rv .gm.in{ opacity:1; transform:none; animation:none !important; }
   .gm-media img, .gm-media::before, .gm-media::after, .gm-media i, .gm-row::after{ transition:none; }
   .gm-st--live::before{ animation:none; }
 }

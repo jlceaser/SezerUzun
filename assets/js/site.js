@@ -85,25 +85,52 @@
     g.style.backgroundImage = 'url(' + n.toDataURL() + ')';
   })();
 
-  /* ---------- reveals ---------- */
-  var sections = [].slice.call(document.querySelectorAll('.rv'));
-  var intro = document.getElementById('kimlik');
-  function showAll(){ sections.forEach(function(s){ s.classList.add('on'); }); }
+  /* ---------- reveals ---------------------------------------------
+     Each piece is watched on its own and gets .in when it reaches the
+     viewport; the pieces that arrive in the same frame are staggered
+     in reading order. What is already above the viewport when it is
+     first seen (a reload mid-page, a jump from the menu) gets .now and
+     lands finished. Nothing is ever left half-way: a piece is hidden,
+     arriving, or there.                                             */
+  var pieces = [].slice.call(document.querySelectorAll(
+    '.rv .m, .rv .sf, .rv .wp, .rv .ln, .rv .wk, .rv .gm'));
+  var revealIO = null;
+  function land(el, d, now){
+    if (d) el.style.setProperty('--d', d + 'ms');
+    el.classList.add('in');
+    if (now) el.classList.add('now');
+  }
+  function showAll(){
+    if (revealIO){ revealIO.disconnect(); revealIO = null; }
+    pieces.forEach(function(el){ if (!el.classList.contains('in')) land(el, 0, true); });
+  }
 
   /* The intro must not play behind the loader, so nothing is observed
      until the curtain has lifted — begin() is the single entry point. */
+  var begun = false;
   function begin(){
-    if (intro) intro.classList.add('on');
-    var rest = sections.filter(function(s){ return s !== intro; });
-    if (!('IntersectionObserver' in window)){ showAll(); return; }
-    var io = new IntersectionObserver(function(es){
+    if (begun) return;
+    begun = true;
+    if (reduce || !('IntersectionObserver' in window)){ showAll(); return; }
+    revealIO = new IntersectionObserver(function(es){
+      var arriving = [];
       es.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+        if (e.isIntersecting) arriving.push(e);
+        else if (e.boundingClientRect.bottom <= 0){ land(e.target, 0, true); revealIO.unobserve(e.target); }
       });
-    }, { rootMargin:'0px 0px -12% 0px', threshold:.05 });
-    rest.forEach(function(s){ io.observe(s); });
+      arriving.sort(function(a, b){
+        var dy = a.boundingClientRect.top - b.boundingClientRect.top;
+        return Math.abs(dy) > 4 ? dy : a.boundingClientRect.left - b.boundingClientRect.left;
+      });
+      arriving.forEach(function(e, k){
+        land(e.target, Math.min(k * 70, 630), false);
+        revealIO.unobserve(e.target);
+      });
+    }, { rootMargin:'0px 0px -6% 0px', threshold:0 });
+    pieces.forEach(function(el){ revealIO.observe(el); });
   }
-  setTimeout(showAll, 8000);   /* nothing may stay invisible */
+  /* nothing may stay invisible: if the reveal never starts, show it all */
+  setTimeout(function(){ if (!begun){ begun = true; showAll(); } }, 6000);
 
   /* ---------- loader, then the intro plays ---------- */
   (function(){
@@ -113,14 +140,16 @@
 
     if (reduce){ load.classList.add('done'); begin(); return; }
 
-    var start = null, DUR = 1800;
+    /* the count is for the first arrival; a reload or a return visit in
+       the same tab gets a short curtain instead of the whole ceremony */
+    var seen = false;
+    try { seen = sessionStorage.getItem('cw-seen') === '1'; sessionStorage.setItem('cw-seen', '1'); } catch (e) {}
+    var start = null, DUR = seen ? 650 : 1600;
     function step(ts){
       if (start === null) start = ts;
       var p = clamp((ts - start) / DUR, 0, 1);
       var eased = 1 - Math.pow(1 - p, 3.2);
       if (num) num.textContent = Math.round(eased * 100);
-      var bar = document.getElementById('loadBar');
-      if (bar) bar.style.width = (eased * 100) + '%';
       if (p < 1) requestAnimationFrame(step);
       else {
         load.classList.add('done');
@@ -130,32 +159,39 @@
     requestAnimationFrame(step);
   })();
 
-  /* ---------- cursor ---------- */
-  var cur = document.getElementById('cur');
-  var ring = document.getElementById('ring');
-  var mx = -100, my = -100, cx = -100, cy = -100, px = -100, py = -100;
-  if (cur && !reduce){
-    window.addEventListener('mousemove', function(e){
-      mx = e.clientX; my = e.clientY;
-      cur.style.opacity = 1;
-      if (ring) ring.style.opacity = 1;
-    }, { passive:true });
-    /* delegated, so controls that modules build later grow the cursor too */
-    var HOT = 'a,button,[data-hover]';
-    document.addEventListener('mouseover', function(e){
-      var el = e.target.closest && e.target.closest(HOT);
-      if (!el) return;
-      /* the dot is difference-blended: at 64px over a sunset tile it inverts
-         to a blue disc and swallows the mark, so the tiles keep the small dot */
-      if (!el.classList.contains('net')) cur.classList.add('big');
-      if (ring) ring.classList.add('big');
-    });
-    document.addEventListener('mouseout', function(e){
-      var el = e.target.closest && e.target.closest(HOT);
-      if (!el || (e.relatedTarget && el.contains(e.relatedTarget))) return;
-      cur.classList.remove('big'); if (ring) ring.classList.remove('big');
-    });
+  /* ---------- pointer ---------------------------------------------
+     There is no drawn cursor: the system pointer is exact and already
+     knows a link from a text field. The page only keeps track of where
+     it is, for the preview tile, the magnets and the photograph's lean. */
+  var mx = window.innerWidth / 2, my = window.innerHeight / 2, px = 0, py = 0;
+  var fine = !!(window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches);
+  window.addEventListener('pointermove', function(e){
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    mx = e.clientX; my = e.clientY;
+  }, { passive:true });
+
+  /* the preview tile rides beside the pointer and belongs to one row */
+  var prevRow = null, prevW = 0, prevH = 0;
+  function prevSpot(){
+    var x = mx + 24, y = my + 24;
+    if (x + prevW > window.innerWidth - 12) x = mx - prevW - 24;
+    if (y + prevH > window.innerHeight - 12) y = my - prevH - 24;
+    return { x: Math.max(12, x), y: Math.max(12, y) };
   }
+  function showPrev(row){
+    if (!prev || !fine || reduce) return;
+    var fresh = !prev.classList.contains('on');
+    prevRow = row;
+    prev.classList.add('on');
+    prevW = prev.offsetWidth; prevH = prev.offsetHeight;
+    if (fresh){ var sp = prevSpot(); px = sp.x; py = sp.y; }   /* appear in place, not flown in */
+  }
+  function hidePrev(){
+    prevRow = null;
+    if (prev) prev.classList.remove('on');
+  }
+  document.documentElement.addEventListener('mouseleave', hidePrev);
+  window.addEventListener('blur', hidePrev);
 
   /* ---------- the hour in Türkiye, beside the live dot ---------- */
   (function(){
@@ -232,15 +268,10 @@
       var tile = 'url(' + tiles[(+row.dataset.c) % tiles.length] + ') center/cover';
       prevImg.style.background = mark ? 'url(' + mark.src + ') center/40% no-repeat, ' + tile : tile;
       prev.classList.remove('doc');
-      prev.classList.add('on');
+      showPrev(row);
     });
-    row.addEventListener('mouseleave', function(){
-      if (prev) prev.classList.remove('on');
-    });
+    row.addEventListener('mouseleave', hidePrev);
   });
-
-
-
 
   /* ---------- certificate previews ---------- */
   var CERT = {"itu-ai": "assets/img/cert/itu-ai.webp","disticaret": "assets/img/cert/disticaret.webp","kariyer": "assets/img/cert/kariyer.webp","ann": "assets/img/cert/ann.webp","risk": "assets/img/cert/risk.webp","pyonetimi": "assets/img/cert/pyonetimi.webp","algo": "assets/img/cert/algo.webp","siber": "assets/img/cert/siber.webp","bilgiguv": "assets/img/cert/bilgiguv.webp","agtemel": "assets/img/cert/agtemel.webp","ptemel": "assets/img/cert/ptemel.webp","isletim": "assets/img/cert/isletim.webp","agteknoloji": "assets/img/cert/agteknoloji.webp","bilgitek": "assets/img/cert/bilgitek.webp","digiage": "assets/img/cert/digiage.webp"};
@@ -252,11 +283,9 @@
       prevImg.style.background = 'url(' + img + ') center/cover no-repeat';
       prev.style.setProperty('--ar', row.dataset.ar || '1.45');
       prev.classList.add('doc');
-      prev.classList.add('on');
+      showPrev(row);
     });
-    row.addEventListener('mouseleave', function(){
-      if (prev) prev.classList.remove('on');
-    });
+    row.addEventListener('mouseleave', hidePrev);
   });
 
   /* ---------- character split for the display lines ---------- */
@@ -285,23 +314,37 @@
      is unaffected. A watchdog turns the whole thing off if the host
      turns out not to scroll this document.                        */
   var scroller = document.getElementById('scroller');
-  var smoothOn = false, smoothPos = 0;
+  var smoothOn = false, smoothPos = 0, gaveUp = false, sizer = null;
+  var smooth = 0, vel = 0, primed = false;
+
+  /* section labels: sticky in a real scroll, carried by hand under inertia */
+  var heads = [].slice.call(document.querySelectorAll('.works-head')).map(function(h){
+    return { h: h, g: h.parentNode, hh: 0 };
+  });
+  var pinPx = 88;
 
   function measure(){
     if (!smoothOn || !scroller) return;
     document.body.style.height = Math.round(scroller.getBoundingClientRect().height) + 'px';
+    pinPx = parseFloat(getComputedStyle(root).fontSize) * 5.5;
+    heads.forEach(function(o){ o.hh = o.h.offsetHeight; });
   }
-  function enableSmooth(){
+  function canSmooth(){
     /* a fixed wrapper fights the mobile address bar, and coarse pointers
        already get native momentum — desktop only. */
-    if (!scroller || reduce) return;
-    if (window.innerWidth <= 860) return;
-    if (!window.matchMedia('(pointer:fine)').matches) return;
+    return !!scroller && !reduce && !gaveUp && window.innerWidth > 860 &&
+           window.matchMedia('(pointer:fine)').matches;
+  }
+  function enableSmooth(){
+    if (smoothOn) return;
     smoothOn = true;
+    smooth = smoothPos = window.scrollY || 0;        /* start where the page is, not at the top */
     root.classList.add('smooth');
+    scroller.style.transform = 'translate3d(0,' + (-smooth).toFixed(2) + 'px,0)';
     measure();
-    if (window.ResizeObserver) new ResizeObserver(measure).observe(scroller);
-    window.addEventListener('resize', measure);
+    /* the document had no height for a moment, which clamps the scroll to 0 */
+    if (smooth > 0) window.scrollTo({ top: smooth, behavior: 'instant' });
+    if (!sizer && window.ResizeObserver){ sizer = new ResizeObserver(measure); sizer.observe(scroller); }
   }
   function disableSmooth(){
     if (!smoothOn) return;
@@ -309,30 +352,81 @@
     root.classList.remove('smooth');
     document.body.style.height = '';
     scroller.style.transform = '';
+    heads.forEach(function(o){ o.h.style.transform = ''; });
   }
-  enableSmooth();
+  /* a resize can cross the desktop line in either direction */
+  function syncSmooth(){
+    if (canSmooth()) enableSmooth(); else disableSmooth();
+    measure();
+  }
+  syncSmooth();
+  window.addEventListener('resize', syncSmooth);
 
   /* watchdog: wheeling down while the document refuses to move means
      the host is scrolling something else — hand control back. */
   var pushes = 0;
   window.addEventListener('wheel', function(e){
     if (!smoothOn || e.deltaY <= 0) return;
-    if ((window.scrollY || 0) < 2){ if (++pushes >= 4) disableSmooth(); }
+    var room = document.documentElement.scrollHeight - window.innerHeight;
+    if (room > 4 && (window.scrollY || 0) < 2){ if (++pushes >= 4){ gaveUp = true; disableSmooth(); } }
     else pushes = 0;
   }, { passive:true });
 
   /* anchors have to be resolved against the wrapper, not the document */
+  var veil = document.getElementById('veil'), veilT = null;
+  function docTop(el){
+    return el.getBoundingClientRect().top + (smoothOn ? smoothPos : (window.scrollY || 0));
+  }
+  function place(y){                                 /* be there, without travelling */
+    window.scrollTo({ top: y, behavior: 'instant' });
+    smooth = smoothPos = y;
+    if (smoothOn) scroller.style.transform = 'translate3d(0,' + (-y).toFixed(2) + 'px,0)';
+  }
+  function targetY(el){
+    var room = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var lead = el.id === 'top' || el.id === 'kimlik' ? 0 : (nav ? nav.offsetHeight : 0) + 14;
+    return clamp(Math.round(docTop(el) - lead), 0, room);
+  }
   function goTo(el){
     if (!el) return;
-    var y = el.getBoundingClientRect().top + (smoothOn ? smoothPos : (window.scrollY || 0));
-    window.scrollTo({ top: Math.max(0, y), behavior: smoothOn ? 'auto' : 'smooth' });
+    var y = targetY(el), from = smoothOn ? smoothPos : (window.scrollY || 0);
+    if (reduce){ place(y); return; }
+    /* a near target is travelled to; a far one is crossed behind the veil,
+       so the page is never dragged past the reader in a blur */
+    if (!veil || Math.abs(y - from) < window.innerHeight * 1.6){
+      window.scrollTo({ top: y, behavior: smoothOn ? 'auto' : 'smooth' });
+      return;
+    }
+    clearTimeout(veilT);
+    veil.classList.add('on');
+    veilT = setTimeout(function(){
+      place(targetY(el));
+      veilT = setTimeout(function(){ veil.classList.remove('on'); }, 90);
+    }, 210);
   }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
-      var t = document.querySelector(a.getAttribute('href'));
+      var id = a.getAttribute('href');
+      var t = id.length > 1 ? document.querySelector(id) : null;
       if (!t) return;
       e.preventDefault(); goTo(t);
+      if (window.history && history.replaceState){
+        try { history.replaceState(null, '', id === '#top' ? location.pathname + location.search : id); } catch (err) {}
+      }
     });
+  });
+  /* a link that arrives with a hash: the browser cannot find the target
+     inside a fixed wrapper, so it is placed by hand once layout is final */
+  setTimeout(function(){ primed = true; }, 4000);    /* a load that never settles must not hold inertia back */
+  window.addEventListener('load', function(){
+    measure();
+    /* the browser restores a reload's scroll position around now; two frames
+       later the page is where it will be, and inertia may start from there */
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ primed = true; }); });
+    if (!smoothOn || location.hash.length < 2) return;
+    var t = null;
+    try { t = document.querySelector(location.hash); } catch (err) {}
+    if (t) place(targetY(t));
   });
 
   /* ---------- magnetic controls ---------- */
@@ -456,7 +550,7 @@
        work index a tower and the manifesto a low slab. */
     parts.forEach(function(x){
       x.h = x.el.offsetHeight;
-      x.top = x.el.getBoundingClientRect().top + (window.scrollY || 0);
+      x.top = docTop(x.el);
       x.count = x.el.querySelectorAll('*').length;
       x.density = x.count / Math.max(1, x.h / 1000);
     });
@@ -549,7 +643,6 @@
 
   /* ---------- one rAF loop: scroll %, parallax, velocity, cursor ---- */
   var prog = document.getElementById('prog');
-  var smooth = 0, vel = 0, rx = -100, ry = -100;
   var pw = document.getElementById('photoWrap');
 
   function frame(){
@@ -558,6 +651,7 @@
     var y = window.scrollY || doc.scrollTop || 0;
 
     /* one lerped value is the single source of motion for the page */
+    if (!primed) smooth = y;                         /* until the load settles, be exactly where the page is */
     var before = smooth;
     smooth = lerp(smooth, y, .1);
     if (Math.abs(y - smooth) < .12) smooth = y;      /* settle, do not creep */
@@ -571,17 +665,6 @@
     var r = max > 0 ? clamp(smooth / max, 0, 1) : 0;
     if (prog) prog.style.transform = 'scaleX(' + r + ')';
     root.style.setProperty('--vel', clamp(vel * .09, -5, 5) + 'deg');
-
-    /* three followers at three rates: dot, ring, preview. The spread of
-       the lag is what gives the pointer a sense of mass. */
-    if (cur){
-      cx = lerp(cx, mx, .22); cy = lerp(cy, my, .22);
-      cur.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
-    }
-    if (ring){
-      rx = lerp(rx, mx, .11); ry = lerp(ry, my, .11);
-      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
-    }
 
     /* the photograph drifts against the scroll and leans toward the pointer */
     if (pw){
@@ -624,9 +707,26 @@
     if (motes) motes(0, vel);
     if (vig) vig.style.opacity = (.5 + clamp(smooth / vh, 0, 1) * .3).toFixed(3);
 
-    if (prev){
-      px = lerp(px, mx, .085); py = lerp(py, my, .085);
-      prev.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0) translate(-50%,-50%) rotate(' + clamp((mx - px) * .05, -9, 9) + 'deg)';
+    /* the preview keeps close beside the pointer; if the page has moved
+       its row out from under the pointer, it lets go */
+    if (prev && prevRow){
+      var rr = prevRow.getBoundingClientRect();
+      if (mx < rr.left || mx > rr.right || my < rr.top || my > rr.bottom) hidePrev();
+      else {
+        var sp = prevSpot();
+        px = lerp(px, sp.x, .24); py = lerp(py, sp.y, .24);
+        prev.style.transform = 'translate3d(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px,0) rotate('
+          + clamp((sp.x - px) * .03, -3, 3).toFixed(2) + 'deg)';
+      }
+    }
+
+    /* section labels ride down their section, resting under the nav */
+    if (smoothOn){
+      for (var hI = 0; hI < heads.length; hI++){
+        var ho = heads[hI], gr = ho.g.getBoundingClientRect();
+        var off = clamp(pinPx - gr.top, 0, Math.max(0, gr.height - ho.hh));
+        ho.h.style.transform = off ? 'translate3d(0,' + off.toFixed(1) + 'px,0)' : '';
+      }
     }
 
     syncMap();

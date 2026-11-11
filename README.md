@@ -14,7 +14,7 @@ assets/
   css/oyunlar.css       Oyunlar: CEDRA kapakları, gün batımı duotone
   css/dil.css           Dil: İngilizce → Türkçe hizalama sahnesi
   css/yigin.css         Yığın: tuş takımı
-  js/site.js            atalet kaydırma, imleç, menü, manifesto, sayaçlar, harita
+  js/site.js            atalet kaydırma, açılışlar, önizleme, menü, manifesto, sayaçlar, harita
   js/oyunlar.js         dokunmatikte kartı yerinde açar
   js/dil.js             hizalama şeritleri, döngü, vurgulama
   js/yigin.js           tuş basma, okuma satırı, otomatik demo
@@ -56,6 +56,18 @@ Konsol hatalarını, yatay taşmayı ve kritik bileşenlerin render'ını kontro
   `font-size` kullanılmaz, yalnızca `--t0` … `--t7` belirteçleri.
 - Atalet kaydırma yalnızca masaüstü + ince işaretleyicide açılır ve bir
   gözcüyle korunur; dokunmatik cihazlar tarayıcının kendi kaydırmasını kullanır.
+- Çizilmiş imleç yok: işaretçi sistemin kendisi. Yalnızca önizleme karosu
+  işaretçinin yanında gezer (altında değil) ve kenarlarda öbür yana geçer.
+- Açılışlar parça parçadır: her `.m` / `.sf` / `.ln` / `.wk` / `.gm` kendi
+  görünür olduğunda `.in` alır, aynı karede gelenler `--d` ile sıralanır.
+  İlk görüldüğünde zaten yukarıda kalmış parça `.now` alır ve oynamadan yerine
+  oturur (sayfa ortasında yenileme, menüden atlama). `<head>`'deki tek satır
+  `js` sınıfını ilk boyamadan önce ekler; betik yoksa her şey görünür durur.
+- Her bölüm aynı dikişle açılır (`.seam`: numara + kendini çizen ince çizgi)
+  ve aynı aralığı kullanır; son dikiş footer'daki ufuk yayıdır.
+- Menüden uzak bir bölüme gidiş `.veil` arkasında yapılır, yakın olan
+  kaydırılır. Bölüm etiketleri (`.works-head`) gerçek kaydırmada `sticky`,
+  atalet kaydırmada `site.js` tarafından taşınır.
 - Marka adları `lang="en"` taşır, yoksa Türkçe büyük harf kuralı `GITHUB`'ı
   `GİTHUB` yapar.
 

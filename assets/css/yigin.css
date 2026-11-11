@@ -4,7 +4,6 @@
    down, tightens the contact shadow and leaves a warm glow on the
    plate; the readout underneath types what the key is for.
    ============================================================ */
-.stack{ padding-block:var(--sp7); }
 .kb{ grid-column:4 / span 5; min-width:0; }
 @media (max-width:860px){ .kb{ grid-column:1 / -1; } }
 
